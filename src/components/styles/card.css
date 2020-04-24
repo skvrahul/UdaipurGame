@@ -1,0 +1,66 @@
+.canvas {
+  background: green;
+}
+.card {
+  width: 100px;
+  height: 160px;
+  float: left;
+  background: #fff;
+  border-radius: 5px;
+  display: table;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 10px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 100px;
+  text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, -1px 1px 0 #000000,
+    1px -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 0 -1px 0 #000000,
+    0 1px 0 #000000, 4px 4px 0 #000000;
+  text-align: center;
+}
+.card.front .inner {
+  display: table-cell;
+  vertical-align: middle;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #0063b3;
+}
+.card.back .inner {
+  display: table-cell;
+  vertical-align: middle;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #403c63;
+}
+.card:before,
+.card:after {
+  display: inline-block;
+  line-height: 0;
+  font-size: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, -1px 1px 0 #000000,
+    1px -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 0 -1px 0 #000000,
+    0 1px 0 #000000, 2px 2px 0 #000000;
+}
+
+.card:before {
+  top: 15px;
+  left: 10px;
+}
+.card:after {
+  bottom: 15px;
+  right: 10px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+.deck {
+  position: relative;
+}
+.deck .card {
+  float: left;
+  position: absolute;
+}

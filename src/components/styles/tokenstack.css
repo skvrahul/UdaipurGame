@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.full-height {
+  height: 100%;
+  background: #20262e;
+}
+
+.coin-container {
+  /*   border-style:dashed; */
+  min-height: 30px;
+  position: relative;
+  padding: 8px;
+}
+.coin-container.silk .coin {
+  background: #ce93d8;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.silk .coin:hover {
+  background: #9c64a6;
+}
+.coin-container.spices .coin {
+  background: #66bb6a;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.spices .coin:hover {
+  background: #338a3e;
+}
+.coin-container.leather .coin {
+  background: #8d6e63;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.leather .coin:hover {
+  background: #5f4339;
+}
+.coin-container.silver .coin {
+  background: #346184;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.silver .coin:hover {
+  background: #003757;
+}
+
+.coin-container.gold .coin {
+  background: #ffc107;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.gold .coin:hover {
+  background: #c79100;
+}
+.coin-container.diamond .coin {
+  background: #d32f2f;
+  box-shadow: -2px 2px 0px 1px rgba(192, 179, 194, 1);
+}
+.coin-container.diamond .coin:hover {
+  background: #9a0007;
+}
+
+.coin {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-left: -26px;
+  /*   border-style: solid; */
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  float: left;
+}
+.coin:hover {
+  z-index: 1;
+}
+.coin.first {
+  margin-left: 0;
+}
