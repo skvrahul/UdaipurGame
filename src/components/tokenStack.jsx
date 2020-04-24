@@ -5,7 +5,7 @@ class TokenStack extends Component {
   getCoins = (coinValues) =>
     coinValues.map((val, ind) => {
       return (
-        <div className={ind === 0 ? "coin first" : "coin"}>
+        <div id={ind} className={ind === 0 ? "coin first" : "coin"}>
           <h4>{val}</h4>
         </div>
       );

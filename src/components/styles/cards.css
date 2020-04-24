@@ -10,8 +10,9 @@ body {
 }
 .card-container {
   display: flex;
-  border: solid;
+  /* border: solid; */
   padding: 8px;
+  margin: 26px;
 }
 
 .card {

@@ -5,6 +5,7 @@ import Popup from "react-popup";
 import TokenStack from "./tokenStack";
 import { RESOURCES } from "../constants";
 import "./styles/cards.css";
+import "./styles/boardLayout.css";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -69,78 +70,74 @@ class UdaipurBoard extends Component {
     );
     this.clearSelection();
   };
+  PlayerCards = ({ cards }) => (
+    <div className="card-container">
+      {cards.map((card) => (
+        <Card
+          key={card.id}
+          card={card}
+          selected={this.state.handSelected.includes(card.id)}
+          faceUp={true}
+          type="HAND"
+          onClick={this.handleHandSelect}
+        ></Card>
+      ))}
+    </div>
+  );
+  BoardCards = ({ cards, deckLength }) => (
+    <div className="card-container">
+      <Card type="DECK" faceUp={false} length={deckLength}></Card>
+      {cards.map((card) => (
+        <Card
+          key={card.id}
+          card={card}
+          type="BOARD"
+          faceUp={true}
+          selected={this.state.boardSelected.includes(card.id)}
+          onClick={this.handleBoardSelect}
+        ></Card>
+      ))}
+    </div>
+  );
+
   render() {
     const p = this.props.ctx.currentPlayer;
 
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[p].cards;
     const deckLength = this.props.G.deck.length;
-    const PlayerCards = ({ cards }) => (
-      <div className="card-container">
-        {cards.map((card) => (
-          <Card
-            card={card}
-            selected={this.state.handSelected.includes(card.id)}
-            faceUp={true}
-            type="HAND"
-            onClick={this.handleHandSelect}
-          ></Card>
-        ))}
-      </div>
-    );
-    const BoardCards = ({ cards, deckLength }) => (
-      <div>
-        <div className="card-container">
-          <Card type="DECK" faceUp={false} length={deckLength}></Card>
-          {cards.map((card) => (
-            <Card
-              card={card}
-              type="BOARD"
-              faceUp={true}
-              selected={this.state.boardSelected.includes(card.id)}
-              onClick={this.handleBoardSelect}
-            ></Card>
+    const resourceTokens = this.props.G.tokens;
+    console.log(resourceTokens);
+    return (
+      <div className="container full_height">
+        <div className="vsplit left">
+          {Object.keys(resourceTokens).map((key) => (
+            <TokenStack
+              id={key}
+              resource={key}
+              coinValues={resourceTokens[key]}
+            ></TokenStack>
           ))}
         </div>
-      </div>
-    );
-
-    return (
-      //   <div className="container full_height">
-      //     <div className="vsplit left">
-
-      //     </div>
-      //   <div className="vsplit right">
-      //     <div className="hsplit top">
-
-      //     </div>
-      //     <div className="hsplit bottom">
-
-      //     </div>
-      //   </div>
-      // </div>
-      <div style={{ height: "900px", backgroundColor: "green" }}>
-        <BoardCards deckLength={deckLength} cards={boardCards}></BoardCards>
-        <PlayerMoves
-          onTrade={this.handleTrade}
-          onTakeMany={this.handleTakeMany}
-          onTakeOne={this.handleTakeOne}
-          onTakeCamels={this.handleTakeCamels}
-          clearHandler={this.clearSelection}
-        ></PlayerMoves>
-        <br></br>
-        <PlayerCards cards={myCards}></PlayerCards>
-        <TokenStack
-          resource={RESOURCES.silk}
-          coinValues={[1, 1, 4, 5, 6, 6, 6, 7]}
-        ></TokenStack>
-        <TokenStack
-          resource={RESOURCES.silk}
-          coinValues={[1, 1, 4, 5, 6, 6, 6, 7]}
-        ></TokenStack>
-        <span>
-          <button onClick={this.clearSelection}>Clear Selection</button>
-        </span>
+        <div className="vsplit right">
+          <div className="hsplit top">
+            <this.BoardCards
+              deckLength={deckLength}
+              cards={boardCards}
+            ></this.BoardCards>
+            <PlayerMoves
+              onTrade={this.handleTrade}
+              onTakeMany={this.handleTakeMany}
+              onTakeOne={this.handleTakeOne}
+              onTakeCamels={this.handleTakeCamels}
+              clearHandler={this.clearSelection}
+            ></PlayerMoves>
+          </div>
+          <div className="hsplit bottom">
+            <this.PlayerCards cards={myCards}></this.PlayerCards>
+            <button onClick={this.clearSelection}>Clear Selection</button>
+          </div>
+        </div>
       </div>
     );
   }
