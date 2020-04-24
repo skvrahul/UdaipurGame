@@ -116,6 +116,7 @@ const Udaipur = {
         // Replenish with card from the deck
         if (G.deck.length > 0) {
           board.push(G.deck.pop());
+          board = board.filter((card) => card.id !== cardToTake.id);
         }
         G.board = board;
         ctx.events.endTurn();
@@ -237,7 +238,7 @@ const Udaipur = {
       }
       if (checkPlayerHand(newPlayerCards)) {
         // Only write to game state if its a valid move!
-        tradeSize = cardsToTrade.length;
+        let tradeSize = cardsToTrade.length;
         for (let i = 0; i < tradeSize; i++) {
           G.players[p].score += G.tokens[cardType].pop();
         }

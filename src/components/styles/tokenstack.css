@@ -68,7 +68,6 @@ body {
   text-align: center;
   display: inline-block;
   position: relative;
-  float: left;
 }
 .coin:hover {
   z-index: 1;

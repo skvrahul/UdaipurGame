@@ -4,10 +4,12 @@ class Deck extends Component {
   render() {
     return (
       <div>
-        <Card></Card>
-        {this.props.cards.map((card) => (
-          <Card card={card} type="BOARD" faceUp={true}></Card>
-        ))}
+        <div className="card-container">
+          <Card type="DECK" faceUp={false} length={this.props.length}></Card>
+          {this.props.cards.map((card) => (
+            <Card card={card} type="BOARD" faceUp={true}></Card>
+          ))}
+        </div>
       </div>
     );
   }

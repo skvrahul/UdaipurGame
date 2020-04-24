@@ -1,0 +1,90 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.full_height {
+  height: 100%;
+  background: #fff9c4;
+}
+.card-container {
+  display: flex;
+  border: solid;
+  padding: 8px;
+}
+
+.card {
+  width: 100px;
+  height: 150px;
+  background: white;
+  border-style: solid;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px;
+  color: #616161;
+  margin-right: -60px;
+  transition: margin-top 0.3s;
+}
+.deck.card {
+  margin-right: 50px;
+  box-shadow: -4px 4px 0px 1px #616161;
+}
+
+.card.selected {
+  margin-top: 0px;
+  /*   color: #66bb6a; */
+}
+.card-container .card:hover {
+  color: #212121;
+  margin-top: 0px;
+}
+.card-container .card.deck:hover {
+  color: #212121;
+  margin-top: 10px;
+}
+.card:hover {
+  color: #212121;
+}
+.card-inside {
+  width: 85%;
+  height: 85%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-inside.silk {
+  background: #ce93d8;
+}
+.card-inside.spices {
+  background: #66bb6a;
+}
+.card-inside.leather {
+  background: #8d6e63;
+}
+
+.card-inside.camel {
+  background-image: url("https://cdn.dribbble.com/users/1192832/screenshots/6987995/dribbble.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.card-inside.back {
+  background: #616161;
+}
+.card-inside.silver {
+  background: #346184;
+}
+.card-inside.gold {
+  background: #ffc107;
+}
+.card-inside.diamond {
+  background: #d32f2f;
+}
+h3 {
+  font-family: "Varela Round";
+}

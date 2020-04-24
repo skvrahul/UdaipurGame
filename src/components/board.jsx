@@ -4,6 +4,7 @@ import Card from "./card";
 import Popup from "react-popup";
 import TokenStack from "./tokenStack";
 import { RESOURCES } from "../constants";
+import "./styles/cards.css";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -73,34 +74,53 @@ class UdaipurBoard extends Component {
 
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[p].cards;
-    const PlayerCards = ({ cards }) =>
-      cards.map((card) => (
-        <Card
-          card={card}
-          selected={this.state.handSelected.includes(card.id)}
-          faceUp={true}
-          type="HAND"
-          onClick={this.handleHandSelect}
-        ></Card>
-      ));
-    const BoardCards = ({ cards }) => (
-      <div>
-        <Card faceUp={false}></Card>
+    const deckLength = this.props.G.deck.length;
+    const PlayerCards = ({ cards }) => (
+      <div className="card-container">
         {cards.map((card) => (
           <Card
             card={card}
-            type="BOARD"
+            selected={this.state.handSelected.includes(card.id)}
             faceUp={true}
-            selected={this.state.boardSelected.includes(card.id)}
-            onClick={this.handleBoardSelect}
+            type="HAND"
+            onClick={this.handleHandSelect}
           ></Card>
         ))}
       </div>
     );
+    const BoardCards = ({ cards, deckLength }) => (
+      <div>
+        <div className="card-container">
+          <Card type="DECK" faceUp={false} length={deckLength}></Card>
+          {cards.map((card) => (
+            <Card
+              card={card}
+              type="BOARD"
+              faceUp={true}
+              selected={this.state.boardSelected.includes(card.id)}
+              onClick={this.handleBoardSelect}
+            ></Card>
+          ))}
+        </div>
+      </div>
+    );
 
     return (
+      //   <div className="container full_height">
+      //     <div className="vsplit left">
+
+      //     </div>
+      //   <div className="vsplit right">
+      //     <div className="hsplit top">
+
+      //     </div>
+      //     <div className="hsplit bottom">
+
+      //     </div>
+      //   </div>
+      // </div>
       <div style={{ height: "900px", backgroundColor: "green" }}>
-        <BoardCards cards={boardCards}></BoardCards>
+        <BoardCards deckLength={deckLength} cards={boardCards}></BoardCards>
         <PlayerMoves
           onTrade={this.handleTrade}
           onTakeMany={this.handleTakeMany}
@@ -110,6 +130,10 @@ class UdaipurBoard extends Component {
         ></PlayerMoves>
         <br></br>
         <PlayerCards cards={myCards}></PlayerCards>
+        <TokenStack
+          resource={RESOURCES.silk}
+          coinValues={[1, 1, 4, 5, 6, 6, 6, 7]}
+        ></TokenStack>
         <TokenStack
           resource={RESOURCES.silk}
           coinValues={[1, 1, 4, 5, 6, 6, 6, 7]}
