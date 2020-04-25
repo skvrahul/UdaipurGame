@@ -14,3 +14,8 @@ export const RESOURCES = Object.freeze({
   leather: "LEATHER",
   spices: "SPICES",
 });
+export const RARE_RESOURCES = [
+  RESOURCES.diamond,
+  RESOURCES.gold,
+  RESOURCES.silver,
+];

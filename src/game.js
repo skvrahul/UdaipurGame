@@ -1,9 +1,7 @@
-import { RESOURCES } from "./constants";
+import { RESOURCES, RARE_RESOURCES } from "./constants";
+
+//Defining some Game constants here
 const MIN_RARE_TRADE = 2;
-const RARE_RESOURCES = [RESOURCES.diamond, RESOURCES.gold, RESOURCES.silver];
-const Error = (str) => {
-  console.log("ERROR: " + str);
-};
 const MAX_HAND_SIZE = 7;
 let DECK_CONTENTS = {};
 DECK_CONTENTS[RESOURCES.diamond] = 6;
@@ -15,7 +13,10 @@ DECK_CONTENTS[RESOURCES.leather] = 10;
 DECK_CONTENTS[RESOURCES.camel] = 11;
 DECK_CONTENTS = Object.freeze(DECK_CONTENTS);
 
-const TOKENS = {};
+const Error = (str) => {
+  console.log("ERROR: " + str);
+};
+
 const shuffleDeck = (deck) => {
   for (var i = deck.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -99,12 +100,10 @@ const Udaipur = {
 
       let cardToTake = board.filter((card) => card.id === id)[0];
       if (!cardToTake) {
-        Error("Card with that ID does not exist!");
-        return;
+        return Error("Card with that ID does not exist!");
       }
       if (cardToTake.type === RESOURCES.camel) {
-        Error("You can't take a camel!");
-        return;
+        return Error("You can't take a camel!");
       }
 
       let newPlayerCards = G.players[p].cards.slice();
@@ -121,14 +120,13 @@ const Udaipur = {
         G.board = board;
         ctx.events.endTurn();
       } else {
-        Error("Too many cards in players hands for doing that move!");
+        return Error("Too many cards in players hands for doing that move!");
       }
     },
     takeMany: (G, ctx, takeIDs, replaceIDs) => {
       const p = ctx.currentPlayer;
       if (takeIDs.length !== replaceIDs.length) {
-        Error("You have to replace as many as you take!");
-        return;
+        return Error("You have to replace as many as you take!");
       }
       // Cards to remove from the deck
       const cardsToRemove = G.board.filter(
@@ -136,10 +134,9 @@ const Udaipur = {
       );
 
       if (cardsToRemove.length !== takeIDs.length) {
-        Error(
+        return Error(
           "Length mismatch(Perhaps camels were attempted to be removed from the board!)"
         );
-        return;
       }
 
       // Deck after removing the cards
@@ -162,7 +159,7 @@ const Udaipur = {
         G.board = newBoard;
         ctx.events.endTurn();
       } else {
-        Error("Too many cards in players hands for doing that move!");
+        return Error("Too many cards in players hands for doing that move!");
       }
     },
 
@@ -172,6 +169,9 @@ const Udaipur = {
       let newBoard = G.board.filter((card) => card.type !== RESOURCES.camel);
       let camels = G.board.filter((card) => card.type === RESOURCES.camel);
       const numCamels = camels.length;
+      if (numCamels === 0) {
+        return Error("No camels on the board! Can't make that move");
+      }
       while (camels.length > 0) {
         newPlayerCards.push(camels.pop());
       }
@@ -185,7 +185,7 @@ const Udaipur = {
         G.board = newBoard;
         ctx.events.endTurn();
       } else {
-        Error("Too many cards in players hands for doing that move!");
+        return Error("Too many cards in players hands for doing that move!");
       }
     },
 
@@ -195,8 +195,7 @@ const Udaipur = {
         tradeIDs.includes(card.id)
       );
       if (cardsToTrade.length === 0) {
-        Error("Not enough cards to trade");
-        return;
+        return Error("Not enough cards to trade");
       }
       const cardType = cardsToTrade[0].type;
       console.log("ct");
@@ -205,36 +204,31 @@ const Udaipur = {
       cardsToTrade.forEach((card) => {
         console.log(card.type);
         if (card.type !== cardType) {
-          Error("Inconsistent cardType for trading");
-          return;
+          return Error("Inconsistent cardType for trading");
         }
       });
       if (cardType === RESOURCES.camel) {
-        Error("You cannot trade camels!");
-        return;
+        return Error("You cannot trade camels!");
       }
       const newPlayerCards = G.players[p].cards.filter(
         (card) => !tradeIDs.includes(card.id)
       );
       if (cardsToTrade.length !== tradeIDs.length) {
-        Error("All cards traded have to be of the same resource!");
-        return;
+        return Error("All cards traded have to be of the same resource!");
       }
       if (
         RARE_RESOURCES.includes(cardType) &&
         cardsToTrade.length < MIN_RARE_TRADE
       ) {
-        Error(
+        return Error(
           "Cannot trade less than {0} cards for a rare resource!".replace(
             "{0}",
             MIN_RARE_TRADE
           )
         );
-        return;
       }
       if (G.tokens[cardType].length < cardsToTrade.length) {
-        Error("Not enough tokens in the market to trade that resource!");
-        return;
+        return Error("Not enough tokens in the market to trade that resource!");
       }
       if (checkPlayerHand(newPlayerCards)) {
         // Only write to game state if its a valid move!
@@ -253,8 +247,7 @@ const Udaipur = {
         G.players[p].cards = newPlayerCards;
         ctx.events.endTurn();
       } else {
-        Error("Too many cards in players hands for doing that move!");
-        return;
+        return Error("Too many cards in players hands for doing that move!");
       }
     },
   },

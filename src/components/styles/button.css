@@ -1,0 +1,32 @@
+.deep-button {
+  font-family: Varela Round;
+  background-color: #9fa8da;
+  /*   width: 12vmin;
+  height: 8vmin; */
+  min-width: 50px;
+  min-height: 30px;
+  font-size: 2vmin;
+  /*   border: none; */
+  color: #111b1b;
+  border-radius: 8px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: -0px 8px 0px 0px #616161;
+  white-space: normal;
+  margin: 8px;
+}
+.deep-button:active {
+  box-shadow: -0px 2px 0px 0px #616161;
+  transform: translateY(4px) translateX(-1px);
+}
+.deep-button:disabled {
+  background-color: #616161;
+  box-shadow: -0px 2px 0px 0px #616161;
+  transform: translateY(4px) translateX(-1px);
+  cursor: not-allowed;
+}
+
+.deep-button.trade {
+  background-color: #f9a825;
+}

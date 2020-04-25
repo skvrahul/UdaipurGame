@@ -3,7 +3,7 @@ import PlayerMoves from "./playerMoves";
 import Card from "./card";
 import Popup from "react-popup";
 import TokenStack from "./tokenStack";
-import { RESOURCES } from "../constants";
+import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
 
@@ -72,16 +72,33 @@ class UdaipurBoard extends Component {
   };
   PlayerCards = ({ cards }) => (
     <div className="card-container">
-      {cards.map((card) => (
-        <Card
-          key={card.id}
-          card={card}
-          selected={this.state.handSelected.includes(card.id)}
-          faceUp={true}
-          type="HAND"
-          onClick={this.handleHandSelect}
-        ></Card>
-      ))}
+      <div className="camels">
+        {cards
+          .filter((card) => card.type === RESOURCES.camel)
+          .map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              selected={this.state.handSelected.includes(card.id)}
+              faceUp={true}
+              type="HAND"
+              onClick={this.handleHandSelect}
+            ></Card>
+          ))}
+      </div>
+
+      {cards
+        .filter((card) => card.type !== RESOURCES.camel)
+        .map((card) => (
+          <Card
+            key={card.id}
+            card={card}
+            selected={this.state.handSelected.includes(card.id)}
+            faceUp={true}
+            type="HAND"
+            onClick={this.handleHandSelect}
+          ></Card>
+        ))}
     </div>
   );
   BoardCards = ({ cards, deckLength }) => (
@@ -99,10 +116,61 @@ class UdaipurBoard extends Component {
       ))}
     </div>
   );
-
-  render() {
+  getActiveButtons = () => {
+    const G = this.props.G;
     const p = this.props.ctx.currentPlayer;
+    let active = {
+      takeCamels: true,
+      takeOne: true,
+      takeMany: true,
+      trade: true,
+    };
+    const board = G.board;
 
+    // Check if camels can be taken from the board
+    const numCamels = G.board.filter((card) => card.type === RESOURCES.camel)
+      .length;
+    if (numCamels === 0) {
+      active.takeCamels = false;
+    }
+
+    // Check if one resource card can be taken from the board without replacement
+    const numBoardResources = G.board.filter(
+      (card) => card.type !== RESOURCES.camel
+    ).length;
+    if (numBoardResources === 0) {
+      active.takeOne = false;
+    }
+    const numPlayerResources = G.players[p].cards.filter(
+      (card) => card.type !== RESOURCES.camel
+    ).length;
+    if (numPlayerResources >= 7) {
+      active.takeOne = false;
+    }
+
+    // Check if many resource cards can be taken from the board with replacement
+    if (numBoardResources === 0) {
+      active.takeMany = false;
+    }
+    if (G.players[p].cards.length === 0) {
+      active.takeMany = false;
+    }
+
+    // Check if player has anything to trade
+    if (numPlayerResources === 0) {
+      active.trade = false; // No resources available to trade
+    }
+    const playerRareResources = G.players[p].cards.filter((card) =>
+      RARE_RESOURCES.includes(card.type)
+    );
+    // TODO: If player has only rare resources, then check if he has atleast 2 rare to trade
+    return active;
+  };
+  render() {
+    const ap = this.props.playerID;
+    console.log("AP", ap);
+    const p = this.props.ctx.currentPlayer;
+    document.background = "#";
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[p].cards;
     const deckLength = this.props.G.deck.length;
@@ -126,6 +194,7 @@ class UdaipurBoard extends Component {
               cards={boardCards}
             ></this.BoardCards>
             <PlayerMoves
+              active={this.getActiveButtons()}
               onTrade={this.handleTrade}
               onTakeMany={this.handleTakeMany}
               onTakeOne={this.handleTakeOne}

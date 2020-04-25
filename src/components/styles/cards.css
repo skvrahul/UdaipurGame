@@ -33,12 +33,23 @@ body {
   margin-right: 50px;
   box-shadow: -4px 4px 0px 1px #616161;
 }
+.camels {
+  margin-right: 120px;
+  display: flex;
+}
+.camels .card {
+  margin-right: -110px;
+}
 
 .card.selected {
   margin-top: 0px;
   /*   color: #66bb6a; */
 }
 .card-container .card:hover {
+  color: #212121;
+  margin-top: 0px;
+}
+.camels .card:hover {
   color: #212121;
   margin-top: 0px;
 }
