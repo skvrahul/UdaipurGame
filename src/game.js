@@ -118,6 +118,7 @@ const Udaipur = {
           board = board.filter((card) => card.id !== cardToTake.id);
         }
         G.board = board;
+        console.log("Ending turn");
         ctx.events.endTurn();
       } else {
         return Error("Too many cards in players hands for doing that move!");
@@ -127,6 +128,9 @@ const Udaipur = {
       const p = ctx.currentPlayer;
       if (takeIDs.length !== replaceIDs.length) {
         return Error("You have to replace as many as you take!");
+      }
+      if (takeIDs.length <= 1) {
+        return Error("You have to take atleast 2 cards with replacement");
       }
       // Cards to remove from the deck
       const cardsToRemove = G.board.filter(
@@ -157,6 +161,7 @@ const Udaipur = {
       if (checkPlayerHand(newPlayerCards)) {
         G.players[p].cards = newPlayerCards;
         G.board = newBoard;
+        console.log("Ending turn");
         ctx.events.endTurn();
       } else {
         return Error("Too many cards in players hands for doing that move!");
@@ -183,6 +188,7 @@ const Udaipur = {
         }
         G.players[p].cards = newPlayerCards;
         G.board = newBoard;
+        console.log("Ending turn");
         ctx.events.endTurn();
       } else {
         return Error("Too many cards in players hands for doing that move!");
@@ -201,12 +207,9 @@ const Udaipur = {
       console.log("ct");
       console.log(cardType);
       console.log(cardsToTrade);
-      cardsToTrade.forEach((card) => {
-        console.log(card.type);
-        if (card.type !== cardType) {
-          return Error("Inconsistent cardType for trading");
-        }
-      });
+      if (!cardsToTrade.every((card) => card.type === cardType)) {
+        return Error("Inconsistent cardType for trading");
+      }
       if (cardType === RESOURCES.camel) {
         return Error("You cannot trade camels!");
       }
@@ -245,6 +248,7 @@ const Udaipur = {
         }
 
         G.players[p].cards = newPlayerCards;
+        console.log("Ending turn");
         ctx.events.endTurn();
       } else {
         return Error("Too many cards in players hands for doing that move!");

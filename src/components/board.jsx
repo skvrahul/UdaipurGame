@@ -125,8 +125,6 @@ class UdaipurBoard extends Component {
       takeMany: true,
       trade: true,
     };
-    const board = G.board;
-
     // Check if camels can be taken from the board
     const numCamels = G.board.filter((card) => card.type === RESOURCES.camel)
       .length;
@@ -179,7 +177,7 @@ class UdaipurBoard extends Component {
       });
       let flag = false;
       console.log(RR_DICT);
-      for (let [resType, count] of Object.entries(RR_DICT)) {
+      for (let [, count] of Object.entries(RR_DICT)) {
         if (count >= 2) {
           flag = true;
           break;
@@ -191,14 +189,12 @@ class UdaipurBoard extends Component {
   };
   render() {
     const ap = this.props.playerID;
-    console.log("AP", ap);
     const p = this.props.ctx.currentPlayer;
     document.background = "#";
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[p].cards;
     const deckLength = this.props.G.deck.length;
     const resourceTokens = this.props.G.tokens;
-    console.log(resourceTokens);
     return (
       <div className="container full_height">
         <div className="vsplit left">
