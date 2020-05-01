@@ -160,10 +160,33 @@ class UdaipurBoard extends Component {
     if (numPlayerResources === 0) {
       active.trade = false; // No resources available to trade
     }
-    const playerRareResources = G.players[p].cards.filter((card) =>
-      RARE_RESOURCES.includes(card.type)
+
+    // If player has ONLY rare resources, check if he has enough of any given kind
+    const playerResources = G.players[p].cards.filter(
+      (card) => card.type !== RESOURCES.camel
     );
-    // TODO: If player has only rare resources, then check if he has atleast 2 rare to trade
+    const numCommonResources = playerResources.filter(
+      (card) => !RARE_RESOURCES.includes(card.type)
+    );
+    if (numCommonResources === 0) {
+      let RR_DICT = {};
+      playerResources.array.forEach((card) => {
+        if (card.type in RR_DICT) {
+          RR_DICT[card.type] += 1;
+        } else {
+          RR_DICT[card.type] = 1;
+        }
+      });
+      let flag = false;
+      console.log(RR_DICT);
+      for (let [resType, count] of Object.entries(RR_DICT)) {
+        if (count >= 2) {
+          flag = true;
+          break;
+        }
+      }
+      active.trade = flag;
+    }
     return active;
   };
   render() {
