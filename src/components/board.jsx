@@ -165,10 +165,11 @@ class UdaipurBoard extends Component {
     );
     const numCommonResources = playerResources.filter(
       (card) => !RARE_RESOURCES.includes(card.type)
-    );
+    ).length;
     if (numCommonResources === 0) {
+      console.log("Only rare resources in the hand");
       let RR_DICT = {};
-      playerResources.array.forEach((card) => {
+      playerResources.forEach((card) => {
         if (card.type in RR_DICT) {
           RR_DICT[card.type] += 1;
         } else {
@@ -176,7 +177,7 @@ class UdaipurBoard extends Component {
         }
       });
       let flag = false;
-      console.log(RR_DICT);
+      console.log("RR_dict ", RR_DICT);
       for (let [, count] of Object.entries(RR_DICT)) {
         if (count >= 2) {
           flag = true;
@@ -223,7 +224,6 @@ class UdaipurBoard extends Component {
           </div>
           <div className="hsplit bottom">
             <this.PlayerCards cards={myCards}></this.PlayerCards>
-            <button onClick={this.clearSelection}>Clear Selection</button>
           </div>
         </div>
       </div>
