@@ -7,6 +7,7 @@ import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -83,11 +84,28 @@ class UdaipurBoard extends Component {
     this.clearSelection();
   };
   PlayerCards = ({ cards }) => (
-    <div className="card-container">
+    <TransitionGroup className="card-container">
       <div className="camels">
         {cards
           .filter((card) => card.type === RESOURCES.camel)
           .map((card) => (
+            <CSSTransition key={card.id} timeout={500} classNames="card">
+              <Card
+                key={card.id}
+                card={card}
+                selected={this.state.handSelected.includes(card.id)}
+                faceUp={true}
+                type="HAND"
+                onClick={this.handleHandSelect}
+              ></Card>
+            </CSSTransition>
+          ))}
+      </div>
+
+      {cards
+        .filter((card) => card.type !== RESOURCES.camel)
+        .map((card) => (
+          <CSSTransition key={card.id} timeout={500} classNames="card">
             <Card
               key={card.id}
               card={card}
@@ -96,37 +114,26 @@ class UdaipurBoard extends Component {
               type="HAND"
               onClick={this.handleHandSelect}
             ></Card>
-          ))}
-      </div>
-
-      {cards
-        .filter((card) => card.type !== RESOURCES.camel)
-        .map((card) => (
+          </CSSTransition>
+        ))}
+    </TransitionGroup>
+  );
+  BoardCards = ({ cards, deckLength }) => (
+    <TransitionGroup className="card-container">
+      <Card type="DECK" faceUp={false} length={deckLength}></Card>
+      {cards.map((card) => (
+        <CSSTransition key={card.id} timeout={500} classNames="card">
           <Card
             key={card.id}
             card={card}
-            selected={this.state.handSelected.includes(card.id)}
+            type="BOARD"
             faceUp={true}
-            type="HAND"
-            onClick={this.handleHandSelect}
+            selected={this.state.boardSelected.includes(card.id)}
+            onClick={this.handleBoardSelect}
           ></Card>
-        ))}
-    </div>
-  );
-  BoardCards = ({ cards, deckLength }) => (
-    <div className="card-container">
-      <Card type="DECK" faceUp={false} length={deckLength}></Card>
-      {cards.map((card) => (
-        <Card
-          key={card.id}
-          card={card}
-          type="BOARD"
-          faceUp={true}
-          selected={this.state.boardSelected.includes(card.id)}
-          onClick={this.handleBoardSelect}
-        ></Card>
+        </CSSTransition>
       ))}
-    </div>
+    </TransitionGroup>
   );
   getActiveButtons = () => {
     const G = this.props.G;

@@ -14,6 +14,14 @@ body {
   padding: 8px;
   margin: 26px;
 }
+.card-exit {
+  opacity: 1;
+}
+
+.card-exit.card-exit-active {
+  opacity: 0.01;
+  transition: opacity 0.2s ease-in;
+}
 
 .card {
   width: 100px;
