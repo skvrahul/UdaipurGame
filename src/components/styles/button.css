@@ -30,3 +30,6 @@
 .deep-button.trade {
   background-color: #f9a825;
 }
+.deep-button.trade:disabled {
+  background-color: #616161;
+}

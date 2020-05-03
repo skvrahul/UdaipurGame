@@ -87,10 +87,12 @@ const Udaipur = {
       start.players[0].cards.push(start.deck.pop());
       start.players[1].cards.push(start.deck.pop());
     }
-
+    // Adding deckSize so that the Deck can be stripped in the future
+    // deckSize will get updated after turn onEnd
+    start.deckSize = start.deck.length;
     return start;
   },
-
+  //playerView: PlayerView.STRIP_SECRETS,
   moves: {
     takeOne: (G, ctx, id) => {
       const p = ctx.currentPlayer;
@@ -253,6 +255,12 @@ const Udaipur = {
       } else {
         return Error("Too many cards in players hands for doing that move!");
       }
+    },
+  },
+  turn: {
+    onEnd: (G, ctx) => {
+      //Update states here like deck size
+      G.deckSize = G.deck.length;
     },
   },
   endif: (G, ctx) => {

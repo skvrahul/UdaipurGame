@@ -8,7 +8,7 @@ import Popup from "react-popup";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App playerID="0" />
     <Popup></Popup>
   </React.StrictMode>,
   document.getElementById("root")

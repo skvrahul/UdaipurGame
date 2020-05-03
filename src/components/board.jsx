@@ -3,6 +3,7 @@ import PlayerMoves from "./playerMoves";
 import Card from "./card";
 import Popup from "react-popup";
 import TokenStack from "./tokenStack";
+import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
@@ -14,6 +15,10 @@ class UdaipurBoard extends Component {
       boardSelected: [],
       handSelected: [],
     };
+  }
+
+  alertError(error) {
+    Popup.alert(error);
   }
   clearSelection = () => {
     this.setState({ boardSelected: [], handSelected: [] });
@@ -46,24 +51,31 @@ class UdaipurBoard extends Component {
     this.clearSelection();
   };
   handleTakeOne = () => {
-    console.log("Handling take one!");
     console.log(this.state.boardSelected);
     if (this.state.boardSelected.length !== 1) {
-      Popup.alert("Please select only 1 card to take from the Board!");
-      return;
+      return this.alertError(
+        "Please select only 1 card to take from the Board!"
+      );
     }
-    this.props.moves.takeOne(this.state.boardSelected[0]);
+    const resp = this.props.moves.takeOne(this.state.boardSelected[0]);
+    console.log("Take One response", resp);
     this.clearSelection();
   };
   handleTakeCamels = () => {
-    console.log("Handling take camels!");
+    const board = this.props.G.board;
+    const numCamelsOnBoard = board.filter(
+      (card) => card.type === RESOURCES.camel
+    ).length;
+    if (numCamelsOnBoard <= 0) {
+      return this.alertError(
+        "Not enough camels on the board to perform that move!"
+      );
+    }
     this.props.moves.takeCamels();
     this.clearSelection();
   };
   handleTakeMany = () => {
     console.log("Handling take many!");
-    console.log(this.state.handSelected);
-    console.log(this.state.boardSelected);
     this.props.moves.takeMany(
       this.state.boardSelected,
       this.state.handSelected
@@ -119,12 +131,24 @@ class UdaipurBoard extends Component {
   getActiveButtons = () => {
     const G = this.props.G;
     const p = this.props.ctx.currentPlayer;
+    const iAmActive = this.props.ctx.currentPlayer === this.props.playerID;
+    console.log(this.props.ctx.currentPlayer, " ---- ", this.props.playerID);
     let active = {
       takeCamels: true,
       takeOne: true,
       takeMany: true,
       trade: true,
     };
+    // If this player isn't the active player, then deactivate all the buttons
+    if (!iAmActive) {
+      let active = {
+        takeCamels: false,
+        takeOne: false,
+        takeMany: false,
+        trade: false,
+      };
+      return active;
+    }
     // Check if camels can be taken from the board
     const numCamels = G.board.filter((card) => card.type === RESOURCES.camel)
       .length;
@@ -177,7 +201,6 @@ class UdaipurBoard extends Component {
         }
       });
       let flag = false;
-      console.log("RR_dict ", RR_DICT);
       for (let [, count] of Object.entries(RR_DICT)) {
         if (count >= 2) {
           flag = true;
@@ -189,12 +212,12 @@ class UdaipurBoard extends Component {
     return active;
   };
   render() {
-    const ap = this.props.playerID;
-    const p = this.props.ctx.currentPlayer;
+    const playerID = this.props.playerID;
+    const currentPlayer = this.props.ctx.currentPlayer;
     document.background = "#";
     const boardCards = this.props.G.board;
-    const myCards = this.props.G.players[p].cards;
-    const deckLength = this.props.G.deck.length;
+    const myCards = this.props.G.players[playerID].cards;
+    const deckLength = this.props.G.deckSize;
     const resourceTokens = this.props.G.tokens;
     return (
       <div className="container full_height">
@@ -224,6 +247,10 @@ class UdaipurBoard extends Component {
           </div>
           <div className="hsplit bottom">
             <this.PlayerCards cards={myCards}></this.PlayerCards>
+            <TurnIndicator
+              currentPlayer={currentPlayer}
+              playerID={playerID}
+            ></TurnIndicator>
           </div>
         </div>
       </div>
