@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./popup.css";
 import App from "./App";
+import HomePage from "./components/homepage";
 import * as serviceWorker from "./serviceWorker";
 import Popup from "react-popup";
 
 ReactDOM.render(
   <React.StrictMode>
     <App playerID="0" />
+    {/* <HomePage></HomePage> */}
     <Popup></Popup>
   </React.StrictMode>,
   document.getElementById("root")

@@ -1,0 +1,70 @@
+html,
+body {
+  height: 100%;
+  font-family: Varela Round;
+  margin: 0;
+}
+.full_height {
+  height: 100%;
+  background: #fff9c4;
+  text-align: center;
+}
+.menu-cards {
+  font-size: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: -60px;
+  margin-top: 60px;
+  position: relative;
+}
+#menu-description {
+  padding: 25px;
+}
+.title {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 50px;
+  width: 100%;
+}
+.card {
+  width: 120px;
+  height: 180px;
+  background: white;
+  border-style: solid;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px;
+  color: #616161;
+  margin-right: -60px;
+  transition: margin 0.3s, width 0.2s, height 0.2s;
+}
+.card-inside {
+  width: 85%;
+  height: 85%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-cards .card:hover {
+  color: #212121;
+  margin-top: 0px;
+  width: 130px;
+  height: 195px;
+  margin-right: 10px;
+  z-index: 1;
+  cursor: pointer;
+}
+.card-inside.start {
+  background: #81c784;
+}
+.card-inside.help {
+  background: #e57373;
+}
+.card-inside.join {
+  background: #81d4fa;
+}
