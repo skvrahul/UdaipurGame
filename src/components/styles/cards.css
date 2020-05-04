@@ -23,6 +23,15 @@ body {
   transition: opacity 0.2s ease-in;
 }
 
+.card-enter {
+  opacity: 0.01;
+}
+
+.card-enter.card-enter-active {
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+
 .card {
   width: 100px;
   height: 150px;

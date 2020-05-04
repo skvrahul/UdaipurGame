@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PlayerMoves from "./playerMoves";
-import Card from "./card";
 import Popup from "react-popup";
 import TokenStack from "./tokenStack";
 import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import BoardCards from "./boardCards";
+import PlayerCards from "./playerCards";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -17,6 +17,12 @@ class UdaipurBoard extends Component {
       handSelected: [],
     };
   }
+
+  /**
+   *  Methods to handle UI events and buttons such as:
+   *    - Handling card click on Hand
+   *    - Handling card click on the Board
+   */
 
   alertError(error) {
     Popup.alert(error);
@@ -45,6 +51,14 @@ class UdaipurBoard extends Component {
     }
     this.setState({ boardSelected });
   };
+
+  /**
+   *  Methods to handle various player actions
+   *    - Do necessary checks on client end (TODO)
+   *    - Notify user if action is invalid (WIP)
+   *    - Dispatch move to server
+   *    - Update UI wherever required
+   */
   handleTrade = () => {
     console.log("Handling trade!");
     console.log(this.state.handSelected);
@@ -83,58 +97,7 @@ class UdaipurBoard extends Component {
     );
     this.clearSelection();
   };
-  PlayerCards = ({ cards }) => (
-    <TransitionGroup className="card-container">
-      <div className="camels">
-        {cards
-          .filter((card) => card.type === RESOURCES.camel)
-          .map((card) => (
-            <CSSTransition key={card.id} timeout={500} classNames="card">
-              <Card
-                key={card.id}
-                card={card}
-                selected={this.state.handSelected.includes(card.id)}
-                faceUp={true}
-                type="HAND"
-                onClick={this.handleHandSelect}
-              ></Card>
-            </CSSTransition>
-          ))}
-      </div>
 
-      {cards
-        .filter((card) => card.type !== RESOURCES.camel)
-        .map((card) => (
-          <CSSTransition key={card.id} timeout={500} classNames="card">
-            <Card
-              key={card.id}
-              card={card}
-              selected={this.state.handSelected.includes(card.id)}
-              faceUp={true}
-              type="HAND"
-              onClick={this.handleHandSelect}
-            ></Card>
-          </CSSTransition>
-        ))}
-    </TransitionGroup>
-  );
-  BoardCards = ({ cards, deckLength }) => (
-    <TransitionGroup className="card-container">
-      <Card type="DECK" faceUp={false} length={deckLength}></Card>
-      {cards.map((card) => (
-        <CSSTransition key={card.id} timeout={500} classNames="card">
-          <Card
-            key={card.id}
-            card={card}
-            type="BOARD"
-            faceUp={true}
-            selected={this.state.boardSelected.includes(card.id)}
-            onClick={this.handleBoardSelect}
-          ></Card>
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
-  );
   getActiveButtons = () => {
     const G = this.props.G;
     const p = this.props.ctx.currentPlayer;
@@ -218,8 +181,17 @@ class UdaipurBoard extends Component {
     }
     return active;
   };
+  getOtherPlayer = (p) => {
+    if (p === 0 || p === "0") {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
   render() {
     const playerID = this.props.playerID;
+    const opponentID = this.getOtherPlayer(playerID);
+    console.log(playerID, " playerID");
     const currentPlayer = this.props.ctx.currentPlayer;
     document.background = "#";
     const boardCards = this.props.G.board;
@@ -239,10 +211,13 @@ class UdaipurBoard extends Component {
         </div>
         <div className="vsplit right">
           <div className="hsplit top">
-            <this.BoardCards
+            <BoardCards
+              faceUp={true}
               deckLength={deckLength}
+              onClick={this.handleBoardSelect}
               cards={boardCards}
-            ></this.BoardCards>
+              selected={this.state.boardSelected}
+            ></BoardCards>
             <PlayerMoves
               active={this.getActiveButtons()}
               onTrade={this.handleTrade}
@@ -253,7 +228,12 @@ class UdaipurBoard extends Component {
             ></PlayerMoves>
           </div>
           <div className="hsplit bottom">
-            <this.PlayerCards cards={myCards}></this.PlayerCards>
+            <PlayerCards
+              cards={myCards}
+              selected={this.state.handSelected}
+              faceUp={true}
+              onClick={this.handleHandSelect}
+            ></PlayerCards>
             <TurnIndicator
               currentPlayer={currentPlayer}
               playerID={playerID}

@@ -18,13 +18,13 @@ body {
   position: relative;
 }
 .top {
-  height: 30%;
+  height: 50%;
   /* border: solid; */
   top: 0;
   /*   background: yellow; */
 }
 .bottom {
-  height: 70%;
+  height: 50%;
   /* border: solid; */
   top: 0;
   /*   background: green; */
