@@ -59,7 +59,7 @@ const checkPlayerHand = (hand) => {
     return true;
   }
 };
-const Udaipur = {
+export const Udaipur = {
   setup: () => {
     const deck = generateDeck();
     var start = {
@@ -274,7 +274,6 @@ const Udaipur = {
     }
   },
 };
-export { Udaipur };
 /**
  *      TODO BOARD
  *  - Replace cards in place (do not shift unreplaced cards)  [ ]
