@@ -3,7 +3,7 @@ import { UdaipurGame } from "./game.js";
 import { Client } from "boardgame.io/react";
 import UdaipurBoard from "./components/board.jsx";
 import { SocketIO } from "boardgame.io/multiplayer";
-import React, { Component } from "react";
+import React from "react";
 import { Switch, Route } from "react-router";
 import HomePage from "./components/homepage.jsx";
 

@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./popup.css";
 import App from "./App";
-import HomePage from "./components/homepage";
 import * as serviceWorker from "./serviceWorker";
 import Popup from "react-popup";
 import { BrowserRouter } from "react-router-dom";
