@@ -59,7 +59,8 @@ const checkPlayerHand = (hand) => {
     return true;
   }
 };
-export const Udaipur = {
+export const UdaipurGame = {
+  name: "udaipur",
   setup: () => {
     const deck = generateDeck();
     var start = {

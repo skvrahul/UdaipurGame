@@ -6,11 +6,13 @@ import App from "./App";
 import HomePage from "./components/homepage";
 import * as serviceWorker from "./serviceWorker";
 import Popup from "react-popup";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App playerID="0" />
-    {/* <HomePage></HomePage> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
     <Popup></Popup>
   </React.StrictMode>,
   document.getElementById("root")

@@ -1,5 +1,5 @@
 const { Server } = require("boardgame.io/server");
-const { Udaipur } = require("./game");
+const { UdaipurGame: Udaipur } = require("./game");
 
 const server = Server({
   games: [Udaipur],
