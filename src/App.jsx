@@ -12,13 +12,15 @@ const UdaipurClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
   multiplayer: SocketIO({ server: SERVER_URL + ":" + GAME_SERVER_PORT }),
-  playerID: 0,
 });
+const renderUdaipurClient = () => {
+  return <UdaipurClient playerID="0"></UdaipurClient>;
+};
 function App() {
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
-      <Route path="/play" component={UdaipurClient} />
+      <Route path="/play" component={renderUdaipurClient} />
     </Switch>
   );
 }
