@@ -1,4 +1,5 @@
 import { RESOURCES, RARE_RESOURCES } from "./constants";
+import { GAME_NAME } from "./config";
 
 //Defining some Game constants here
 const MIN_RARE_TRADE = 2;
@@ -60,7 +61,7 @@ const checkPlayerHand = (hand) => {
   }
 };
 export const UdaipurGame = {
-  name: "udaipur",
+  name: GAME_NAME,
   setup: () => {
     const deck = generateDeck();
     var start = {

@@ -6,11 +6,12 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import React from "react";
 import { Switch, Route } from "react-router";
 import HomePage from "./components/homepage.jsx";
+import { SERVER_URL, GAME_SERVER_PORT } from "./config.js";
 
 const UdaipurClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
-  multiplayer: SocketIO({ server: "localhost:8001" }),
+  multiplayer: SocketIO({ server: SERVER_URL + ":" + GAME_SERVER_PORT }),
   playerID: 0,
 });
 function App() {

@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App playerID="0" />
     </BrowserRouter>
     <Popup></Popup>
   </React.StrictMode>,
