@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "boardgame.io": "^0.39.6",
     "esm": "^3.2.25",
+    "ky": "^0.19.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-popup": "^0.10.0",
