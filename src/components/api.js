@@ -17,8 +17,9 @@ export class LobbyAPI {
   }
 
   async joinRoom(roomID, username, userid) {
+    const payload = { playerID: userid, playerName: username };
     const data = await this.api
-      .post(roomID + "/join", { playerID: userid, playerName: username })
+      .post(roomID + "/join", { json: payload })
       .json();
     const { playerCredentials } = data;
     return playerCredentials;
@@ -27,10 +28,5 @@ export class LobbyAPI {
   async whosInRoom(roomID) {
     const data = await this.api.get(roomID).json();
     return data.players;
-  }
-
-  async roomExists(roomID) {
-    const data = await this.api.get(roomID).json();
-    return data;
   }
 }
