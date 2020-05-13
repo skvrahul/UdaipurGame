@@ -24,7 +24,14 @@ export class LobbyAPI {
     const { playerCredentials } = data;
     return playerCredentials;
   }
-
+  async leaveRoom(roomID, userid, playerCredentials) {
+    const payload = { playerID: userid, credentials: playerCredentials };
+    try {
+      await this.api.post(roomID + "/leave", { json: payload }).json();
+    } catch (error) {
+      console.log("error in leaveRoom: ", error);
+    }
+  }
   async whosInRoom(roomID) {
     const data = await this.api.get(roomID).json();
     return data.players;

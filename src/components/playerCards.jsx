@@ -18,6 +18,7 @@ class PlayerCards extends Component {
                   card={card}
                   selected={this.props.selected.includes(card.id)}
                   faceUp={true}
+                  enabled={this.props.enabled}
                   type="HAND"
                   onClick={this.props.onClick}
                 ></Card>

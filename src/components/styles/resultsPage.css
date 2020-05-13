@@ -1,0 +1,66 @@
+html,
+body {
+  height: 100%;
+  font-family: Varela Round;
+  margin: 0;
+}
+.full_height {
+  height: 100%;
+  background: #fff9c4;
+  text-align: center;
+}
+.title {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 50px;
+  width: 100%;
+}
+
+.scoreboard {
+  padding: 16px;
+  font-size: 26px;
+  margin-top: 30px;
+  color: #484848;
+}
+.score-item {
+  padding: 10px;
+}
+.score {
+  padding: 10px;
+}
+.me {
+  font-size: 32px;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: 3;
+}
+.loser {
+  color: #e57373;
+}
+
+.winner {
+  color: #338a3e;
+}
+.player-waiting {
+  height: 4px;
+  width: 100%;
+  margin: auto;
+  background-color: #ffca28;
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% {
+    font-size: 32px;
+  }
+  50% {
+    font-size: 26px;
+  }
+  100% {
+    font-size: 32px;
+  }
+}

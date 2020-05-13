@@ -17,7 +17,15 @@ body {
 .card-exit {
   opacity: 1;
 }
-
+.card.disabled {
+  opacity: 30%;
+  cursor: not-allowed;
+}
+.card.disabled:hover {
+  opacity: 50%;
+  cursor: not-allowed;
+  margin-top: 16px;
+}
 .card-exit.card-exit-active {
   opacity: 0.01;
   transition: opacity 0.2s ease-in;

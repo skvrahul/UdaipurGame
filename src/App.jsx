@@ -22,12 +22,16 @@ function App() {
   return (
     <Switch>
       <Route
-        path="/"
+        path="/home"
         exact
         render={(props) => <HomePage {...props} history={history} />}
       />
       <Route path="/game/:id" component={Lobby} />
       <Route path="/play" component={renderUdaipurClient} />
+      <Route
+        path="*"
+        render={(props) => <HomePage {...props} history={history} />}
+      />
     </Switch>
   );
 }

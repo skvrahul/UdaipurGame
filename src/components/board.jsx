@@ -6,6 +6,7 @@ import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
+import "./styles/resultsPage.css";
 import BoardCards from "./boardCards";
 import PlayerCards from "./playerCards";
 
@@ -68,12 +69,12 @@ class UdaipurBoard extends Component {
   handleTakeOne = () => {
     console.log(this.state.boardSelected);
     if (this.state.boardSelected.length !== 1) {
+      this.clearSelection();
       return this.alertError(
         "Please select only 1 card to take from the Board!"
       );
     }
     const resp = this.props.moves.takeOne(this.state.boardSelected[0]);
-    console.log("Take One response", resp);
     this.clearSelection();
   };
   handleTakeCamels = () => {
@@ -82,6 +83,7 @@ class UdaipurBoard extends Component {
       (card) => card.type === RESOURCES.camel
     ).length;
     if (numCamelsOnBoard <= 0) {
+      this.clearSelection();
       return this.alertError(
         "Not enough camels on the board to perform that move!"
       );
@@ -188,11 +190,53 @@ class UdaipurBoard extends Component {
       return 0;
     }
   };
+  getResultsPage = (gameOver, playerID) => {
+    const iWon = String(gameOver.winner) === String(playerID);
+    return (
+      <div class="full_height">
+        <div class="title">
+          <h1>Udaipur</h1>
+        </div>
+        <div>
+          {iWon ? "Congratulations you have won!" : "I'm afraid you have lost"}
+        </div>
+        <div class="scoreboard">
+          <div
+            class={
+              ("score-item " + gameOver.winner === "0" ? "winner " : "loser ") +
+              (playerID === "0" ? "me" : "")
+            }
+          >
+            <span class="username">
+              {playerID === "0" ? "You" : "Opponent"}
+            </span>
+            <span class="score">{gameOver.scores[0]}</span>
+          </div>
+          <div
+            class={
+              ("score-item " + gameOver.winner === "1" ? "winner " : "loser ") +
+              (playerID === "1" ? "me" : "")
+            }
+          >
+            <span class="username">
+              {playerID === "1" ? "You" : "Opponent"}
+            </span>
+            <span class="score"> {gameOver.scores[1]}</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
   render() {
     const playerID = this.props.playerID;
     const opponentID = this.getOtherPlayer(playerID);
-    console.log(playerID, " playerID");
     const currentPlayer = this.props.ctx.currentPlayer;
+    const iAmActive = playerID === currentPlayer;
+    const gameOver = this.props.ctx.gameover;
+    if (gameOver) {
+      console.log(gameOver, " game OVER!");
+      return this.getResultsPage(gameOver, playerID);
+    }
     document.background = "#";
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[playerID].cards;
@@ -232,6 +276,7 @@ class UdaipurBoard extends Component {
               cards={myCards}
               selected={this.state.handSelected}
               faceUp={true}
+              enabled={iAmActive}
               onClick={this.handleHandSelect}
             ></PlayerCards>
             <TurnIndicator

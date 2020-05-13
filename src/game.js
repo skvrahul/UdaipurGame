@@ -5,6 +5,7 @@ import { GAME_NAME } from "./config";
 const MIN_RARE_TRADE = 2;
 const MAX_HAND_SIZE = 7;
 let DECK_CONTENTS = {};
+const LARGEST_HERD_BONUS = 5;
 DECK_CONTENTS[RESOURCES.diamond] = 6;
 DECK_CONTENTS[RESOURCES.gold] = 6;
 DECK_CONTENTS[RESOURCES.silver] = 6;
@@ -27,7 +28,43 @@ const shuffleDeck = (deck) => {
   }
   return deck;
 };
-const getWinner = (G) => {};
+const getWinner = (G) => {
+  let p0Score = G.players[0].trade_tokens.reduce((total, token) => {
+    return total + token.value;
+  }, 0);
+  let p1Score = G.players[1].trade_tokens.reduce((total, token) => {
+    return total + token.value;
+  }, 0);
+  let p0Camels = G.players[0].cards.filter(
+    (card) => card.type === RESOURCES.camel
+  ).length;
+  let p1Camels = G.players[1].cards.filter(
+    (card) => card.type === RESOURCES.camel
+  ).length;
+
+  // Give out token for most camels
+  if (p0Camels > p1Camels) {
+    p0Score += LARGEST_HERD_BONUS;
+  } else if (p1Camels > p0Camels) {
+    p1Score += LARGEST_HERD_BONUS;
+  } else {
+    //TODO: Deal with a tie
+  }
+  p0Score += G.players[0].T3 * 4;
+  p0Score += G.players[0].T4 * 6;
+  p0Score += G.players[0].T5 * 8;
+
+  p1Score += G.players[1].T3 * 4;
+  p1Score += G.players[1].T4 * 6;
+  p1Score += G.players[1].T5 * 8;
+  let winner = 0;
+  if (p0Score >= p1Score) {
+    winner = 0;
+  } else {
+    winner = 1;
+  }
+  return { winner: winner, scores: { 0: p0Score, 1: p1Score } };
+};
 const generateDeck = () => {
   let deck = [];
   let id = 0;
@@ -68,8 +105,8 @@ export const UdaipurGame = {
       board: [],
       tokens: {},
       players: {
-        0: { score: 0, cards: [], T3: 0, T4: 0, T5: 0 },
-        1: { score: 0, cards: [], T3: 0, T4: 0, T5: 0 },
+        0: { trade_tokens: [], cards: [], T3: 0, T4: 0, T5: 0 },
+        1: { trade_tokens: [], cards: [], T3: 0, T4: 0, T5: 0 },
       },
       deck: deck,
     };
@@ -122,7 +159,6 @@ export const UdaipurGame = {
           board = board.filter((card) => card.id !== cardToTake.id);
         }
         G.board = board;
-        console.log("Ending turn");
         ctx.events.endTurn();
       } else {
         return Error("Too many cards in players hands for doing that move!");
@@ -208,9 +244,6 @@ export const UdaipurGame = {
         return Error("Not enough cards to trade");
       }
       const cardType = cardsToTrade[0].type;
-      console.log("ct");
-      console.log(cardType);
-      console.log(cardsToTrade);
       if (!cardsToTrade.every((card) => card.type === cardType)) {
         return Error("Inconsistent cardType for trading");
       }
@@ -241,14 +274,17 @@ export const UdaipurGame = {
         // Only write to game state if its a valid move!
         let tradeSize = cardsToTrade.length;
         for (let i = 0; i < tradeSize; i++) {
-          G.players[p].score += G.tokens[cardType].pop();
+          G.players[p].trade_tokens.push({
+            resource: cardType,
+            value: G.tokens[cardType].pop(),
+          });
         }
         if (tradeSize === 3) {
-          //TODO: Give players 3T
+          G.players[p].T3 += 1;
         } else if (tradeSize === 4) {
-          //TODO: Give players 4T
+          G.players[p].T4 += 1;
         } else if (tradeSize >= 5) {
-          //TODO: Give players 5T
+          G.players[p].T5 += 1;
         }
 
         G.players[p].cards = newPlayerCards;
@@ -265,22 +301,17 @@ export const UdaipurGame = {
       G.deckSize = G.deck.length;
     },
   },
-  endif: (G, ctx) => {
+  endIf: (G, ctx) => {
     // Victory Condition here
-
     if (G.deck.length <= 0) {
+      console.log("Ending game since we are out of cards!");
       return getWinner(G);
     }
-    if (G.tokens.filter((res) => res.length >= 0).length <= 3) {
+    if (Object.values(G.tokens).filter((res) => res.length > 4).length <= 5) {
+      console.log(
+        "Ending game since we have reached the minimum number of trading token stacks!"
+      );
       return getWinner(G);
     }
   },
 };
-/**
- *      TODO BOARD
- *  - Replace cards in place (do not shift unreplaced cards)  [ ]
- *  - Give players 3T, 4T, 5T tokens  [ ]
- *  - Give Players resource sale tokens  [ ]
- *  - Give player largest camel herd token  [ ]
-    - Check if more than 3 resource tokens are exhausted in 'endif' [X]
- */
