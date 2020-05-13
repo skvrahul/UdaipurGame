@@ -9,10 +9,20 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 
 const api = new LobbyAPI();
+const { origin, protocol, hostname } = window.location;
+let serverURL = "";
+if (process.env.REACT_APP_GAME_SERVER_HOSTNAME) {
+  serverURL = `${process.env.REACT_APP_GAME_SERVER_HOSTNAME}:${GAME_SERVER_PORT}`;
+} else {
+  serverURL = `${protocol}//${hostname}:${GAME_SERVER_PORT}`;
+}
+
 const GameClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
-  multiplayer: SocketIO({ server: `${SERVER_URL}:${GAME_SERVER_PORT}` }),
+  multiplayer: SocketIO({
+    server: serverURL,
+  }),
 });
 class Lobby extends Component {
   state = {};
@@ -150,7 +160,7 @@ class Lobby extends Component {
             className="game-link-box"
             ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
           >
-            {`${protocol}//${hostname}:3000/game/${this.state.id}`}
+            {`${protocol}//${hostname}/lobby/${this.state.id}`}
           </div>
           <div className="game-link-button" onClick={this.copyToClipboard}>
             {this.state.copied ? "Copied️!" : " Copy "}
