@@ -203,7 +203,8 @@ class UdaipurBoard extends Component {
         <div class="scoreboard">
           <div
             class={
-              ("score-item " + gameOver.winner === "0" ? "winner " : "loser ") +
+              "score-item " +
+              (String(gameOver.winner) === "0" ? "winner " : "loser ") +
               (playerID === "0" ? "me" : "")
             }
           >
@@ -214,7 +215,8 @@ class UdaipurBoard extends Component {
           </div>
           <div
             class={
-              ("score-item " + gameOver.winner === "1" ? "winner " : "loser ") +
+              "score-item " +
+              (String(gameOver.winner) === "1" ? "winner " : "loser ") +
               (playerID === "1" ? "me" : "")
             }
           >
