@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./styles/lobby.css";
 import { UdaipurGame } from "../game/game.js";
 import UdaipurBoard from "./board";
-import { WEB_SERVER_URL, GAME_SERVER_URL } from "../config.js";
+import { WEB_SERVER_URL, GAME_SERVER_URL, APP_PRODUCTION } from "../config.js";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 
