@@ -9,9 +9,6 @@ import HomePage from "./components/homepage.jsx";
 import { GAME_SERVER_URL } from "./config.js";
 import Lobby from "./components/lobby.jsx";
 
-const renderUdaipurClient = () => {
-  return <UdaipurClient playerID="0"></UdaipurClient>;
-};
 function App() {
   const history = useHistory();
   return (

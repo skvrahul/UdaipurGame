@@ -1,4 +1,4 @@
-import { GAME_NAME, GAME_SERVER_URL } from "./config";
+import { GAME_NAME, GAME_SERVER_URL, APP_PRODUCTION } from "./config";
 import ky from "ky";
 const server = APP_PRODUCTION
   ? `https://${window.location.hostname}`
