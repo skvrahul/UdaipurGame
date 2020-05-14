@@ -1,11 +1,9 @@
-import { RESOURCES, RARE_RESOURCES } from "../constants";
+import { RESOURCES, LARGEST_HERD_BONUS } from "../constants";
 import { GAME_NAME } from "../config.js";
+import { MoveValidate } from "./moveValidation";
 
 //Defining some Game constants here
-const MIN_RARE_TRADE = 2;
-const MAX_HAND_SIZE = 7;
 let DECK_CONTENTS = {};
-const LARGEST_HERD_BONUS = 5;
 DECK_CONTENTS[RESOURCES.diamond] = 6;
 DECK_CONTENTS[RESOURCES.gold] = 6;
 DECK_CONTENTS[RESOURCES.silver] = 6;
@@ -89,14 +87,6 @@ const generateDeck = () => {
   }
   return deck;
 };
-const checkPlayerHand = (hand) => {
-  const goods = hand.filter((card) => card.type !== RESOURCES.camel);
-  if (goods.length > MAX_HAND_SIZE) {
-    return false;
-  } else {
-    return true;
-  }
-};
 export const UdaipurGame = {
   name: GAME_NAME,
   setup: () => {
@@ -134,26 +124,16 @@ export const UdaipurGame = {
   //playerView: PlayerView.STRIP_SECRETS,
   moves: {
     takeOne: (G, ctx, id) => {
-      const p = ctx.currentPlayer;
-
-      //Using slice to return new arrays rather than references
-      let board = G.board.slice();
-
-      let cardToTake = board.filter((card) => card.id === id)[0];
-      if (!cardToTake) {
-        return Error("Card with that ID does not exist!");
-      }
-      if (cardToTake.type === RESOURCES.camel) {
-        return Error("You can't take a camel!");
-      }
-
-      let newPlayerCards = G.players[p].cards.slice();
-      newPlayerCards.push(cardToTake);
-
       // Only write to game state if its a valid move!
-      if (checkPlayerHand(newPlayerCards)) {
+      const validMove = MoveValidate.takeOne(G, ctx, id);
+      if (validMove.valid) {
+        //Using slice to return new arrays rather than references
+        const p = ctx.currentPlayer;
+        let board = G.board.slice();
+        let cardToTake = board.filter((card) => card.id === id)[0];
+        let newPlayerCards = G.players[p].cards.slice();
+        newPlayerCards.push(cardToTake);
         G.players[p].cards = newPlayerCards;
-        // Replenish with card from the deck
         if (G.deck.length > 0) {
           board.push(G.deck.pop());
           board = board.filter((card) => card.id !== cardToTake.id);
@@ -161,66 +141,48 @@ export const UdaipurGame = {
         G.board = board;
         ctx.events.endTurn();
       } else {
-        return Error("Too many cards in players hands for doing that move!");
+        return Error(validMove.message);
       }
     },
     takeMany: (G, ctx, takeIDs, replaceIDs) => {
-      const p = ctx.currentPlayer;
-      if (takeIDs.length !== replaceIDs.length) {
-        return Error("You have to replace as many as you take!");
-      }
-      if (takeIDs.length <= 1) {
-        return Error("You have to take atleast 2 cards with replacement");
-      }
-      // Cards to remove from the deck
-      const cardsToRemove = G.board.filter(
-        (card) => takeIDs.includes(card.id) && card.type !== RESOURCES.camel //Cannot remove camels from the deck
-      );
-
-      if (cardsToRemove.length !== takeIDs.length) {
-        return Error(
-          "Length mismatch(Perhaps camels were attempted to be removed from the board!)"
-        );
-      }
-
-      // Deck after removing the cards
-      let newBoard = G.board.filter((card) => !takeIDs.includes(card.id));
-
-      const cardsToReplace = G.players[p].cards.filter((card) =>
-        replaceIDs.includes(card.id)
-      );
-      let newPlayerCards = G.players[p].cards.filter(
-        (card) => !replaceIDs.includes(card.id)
-      );
-
-      newBoard.push(...cardsToReplace);
-      newPlayerCards.push(...cardsToRemove);
-
       // Only write to game state if its a valid move!
-      // TODO: Check deck also
-      if (checkPlayerHand(newPlayerCards)) {
+      const validate = MoveValidate.takeMany(G, ctx, takeIDs, replaceIDs);
+      if (validate.valid) {
+        const p = ctx.currentPlayer;
+        // Cards to remove from the deck
+        const cardsToRemove = G.board.filter(
+          (card) => takeIDs.includes(card.id) && card.type !== RESOURCES.camel //Cannot remove camels from the deck
+        );
+
+        // Deck after removing the cards
+        let newBoard = G.board.filter((card) => !takeIDs.includes(card.id));
+        const cardsToReplace = G.players[p].cards.filter((card) =>
+          replaceIDs.includes(card.id)
+        );
+        let newPlayerCards = G.players[p].cards.filter(
+          (card) => !replaceIDs.includes(card.id)
+        );
+        newBoard.push(...cardsToReplace);
+        newPlayerCards.push(...cardsToRemove);
         G.players[p].cards = newPlayerCards;
         G.board = newBoard;
         console.log("Ending turn");
         ctx.events.endTurn();
       } else {
-        return Error("Too many cards in players hands for doing that move!");
+        return Error(validate.message);
       }
     },
-
     takeCamels: (G, ctx) => {
-      const p = ctx.currentPlayer;
-      let newPlayerCards = G.players[p].cards;
-      let newBoard = G.board.filter((card) => card.type !== RESOURCES.camel);
-      let camels = G.board.filter((card) => card.type === RESOURCES.camel);
-      const numCamels = camels.length;
-      if (numCamels === 0) {
-        return Error("No camels on the board! Can't make that move");
-      }
-      while (camels.length > 0) {
-        newPlayerCards.push(camels.pop());
-      }
-      if (checkPlayerHand(newPlayerCards)) {
+      const validMove = MoveValidate.takeCamels(G, ctx);
+      if (validMove.valid) {
+        const p = ctx.currentPlayer;
+        let newPlayerCards = G.players[p].cards;
+        let newBoard = G.board.filter((card) => card.type !== RESOURCES.camel);
+        let camels = G.board.filter((card) => card.type === RESOURCES.camel);
+        const numCamels = camels.length;
+        while (camels.length > 0) {
+          newPlayerCards.push(camels.pop());
+        }
         for (let i = 0; i < numCamels; i++) {
           if (G.deck.length > 0) {
             newBoard.push(G.deck.pop());
@@ -231,47 +193,21 @@ export const UdaipurGame = {
         console.log("Ending turn");
         ctx.events.endTurn();
       } else {
-        return Error("Too many cards in players hands for doing that move!");
+        return Error(validMove.message);
       }
     },
-
     trade: (G, ctx, tradeIDs) => {
-      const p = ctx.currentPlayer;
-      const cardsToTrade = G.players[p].cards.filter((card) =>
-        tradeIDs.includes(card.id)
-      );
-      if (cardsToTrade.length === 0) {
-        return Error("Not enough cards to trade");
-      }
-      const cardType = cardsToTrade[0].type;
-      if (!cardsToTrade.every((card) => card.type === cardType)) {
-        return Error("Inconsistent cardType for trading");
-      }
-      if (cardType === RESOURCES.camel) {
-        return Error("You cannot trade camels!");
-      }
-      const newPlayerCards = G.players[p].cards.filter(
-        (card) => !tradeIDs.includes(card.id)
-      );
-      if (cardsToTrade.length !== tradeIDs.length) {
-        return Error("All cards traded have to be of the same resource!");
-      }
-      if (
-        RARE_RESOURCES.includes(cardType) &&
-        cardsToTrade.length < MIN_RARE_TRADE
-      ) {
-        return Error(
-          "Cannot trade less than {0} cards for a rare resource!".replace(
-            "{0}",
-            MIN_RARE_TRADE
-          )
+      const validMove = MoveValidate.trade(G, ctx, tradeIDs);
+      // Only write to game state if its a valid move!
+      if (validMove.valid) {
+        const p = ctx.currentPlayer;
+        const cardsToTrade = G.players[p].cards.filter((card) =>
+          tradeIDs.includes(card.id)
         );
-      }
-      if (G.tokens[cardType].length < cardsToTrade.length) {
-        return Error("Not enough tokens in the market to trade that resource!");
-      }
-      if (checkPlayerHand(newPlayerCards)) {
-        // Only write to game state if its a valid move!
+        const newPlayerCards = G.players[p].cards.filter(
+          (card) => !tradeIDs.includes(card.id)
+        );
+        const cardType = cardsToTrade[0].type;
         let tradeSize = cardsToTrade.length;
         for (let i = 0; i < tradeSize; i++) {
           G.players[p].trade_tokens.push({
@@ -286,12 +222,11 @@ export const UdaipurGame = {
         } else if (tradeSize >= 5) {
           G.players[p].T5 += 1;
         }
-
         G.players[p].cards = newPlayerCards;
         console.log("Ending turn");
         ctx.events.endTurn();
       } else {
-        return Error("Too many cards in players hands for doing that move!");
+        return Error(validMove.message);
       }
     },
   },
