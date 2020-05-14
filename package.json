@@ -21,7 +21,7 @@
     "serve": "^11.3.0"
   },
   "scripts": {
-    "start": "run-p server client",
+    "start": "node -r esm ./server.js",
     "client": "react-scripts start",
     "server": "node -r esm src/gameServer.js",
     "build": "react-scripts build",
