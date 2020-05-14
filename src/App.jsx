@@ -9,11 +9,6 @@ import HomePage from "./components/homepage.jsx";
 import { GAME_SERVER_URL } from "./config.js";
 import Lobby from "./components/lobby.jsx";
 
-const UdaipurClient = Client({
-  game: UdaipurGame,
-  board: UdaipurBoard,
-  multiplayer: SocketIO({ server: GAME_SERVER_URL }),
-});
 const renderUdaipurClient = () => {
   return <UdaipurClient playerID="0"></UdaipurClient>;
 };
@@ -27,7 +22,6 @@ function App() {
         render={(props) => <HomePage {...props} history={history} />}
       />
       <Route path="/lobby/:id" component={Lobby} />
-      <Route path="/play" component={renderUdaipurClient} />
       <Route
         path="*"
         render={(props) => <HomePage {...props} history={history} />}

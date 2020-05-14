@@ -9,6 +9,7 @@ import "./styles/boardLayout.css";
 import "./styles/resultsPage.css";
 import BoardCards from "./boardCards";
 import PlayerCards from "./playerCards";
+import { MoveValidate } from "../game/moveValidation";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -63,19 +64,32 @@ class UdaipurBoard extends Component {
   handleTrade = () => {
     console.log("Handling trade!");
     console.log(this.state.handSelected);
-    this.props.moves.trade(this.state.handSelected);
+    const { G, ctx } = this.props;
+    const validate = MoveValidate.trade(G, ctx, this.state.handSelected);
+    if (validate.valid) {
+      this.props.moves.trade(this.state.handSelected);
+    } else {
+      return this.alertError(validate.message);
+    }
     this.clearSelection();
   };
   handleTakeOne = () => {
-    console.log(this.state.boardSelected);
+    const { G, ctx } = this.props;
+    const validate = MoveValidate.takeOne(G, ctx, this.state.boardSelected[0]);
+
+    // Some validation before performing the move
     if (this.state.boardSelected.length !== 1) {
       this.clearSelection();
       return this.alertError(
         "Please select only 1 card to take from the Board!"
       );
+    } else if (!validate.valid) {
+      this.clearSelection();
+      return this.alertError(validate.message);
+    } else {
+      this.props.moves.takeOne(this.state.boardSelected[0]);
+      this.clearSelection();
     }
-    const resp = this.props.moves.takeOne(this.state.boardSelected[0]);
-    this.clearSelection();
   };
   handleTakeCamels = () => {
     const board = this.props.G.board;
@@ -93,10 +107,21 @@ class UdaipurBoard extends Component {
   };
   handleTakeMany = () => {
     console.log("Handling take many!");
-    this.props.moves.takeMany(
+    const { G, ctx } = this.props;
+    const validate = MoveValidate.takeMany(
+      G,
+      ctx,
       this.state.boardSelected,
       this.state.handSelected
     );
+    if (validate.valid) {
+      this.props.moves.takeMany(
+        this.state.boardSelected,
+        this.state.handSelected
+      );
+    } else {
+      return this.alertError(validate.message);
+    }
     this.clearSelection();
   };
 

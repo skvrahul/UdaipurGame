@@ -9,11 +9,14 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 
 const api = new LobbyAPI();
+const server = APP_PRODUCTION
+  ? `https://${window.location.hostname}`
+  : GAME_SERVER_URL;
 const GameClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
   multiplayer: SocketIO({
-    server: GAME_SERVER_URL,
+    server: server,
   }),
 });
 class Lobby extends Component {
@@ -143,6 +146,9 @@ class Lobby extends Component {
   };
   gameExistsView = () => {
     const players = [0, 1];
+    const server = APP_PRODUCTION
+      ? `https://${window.location.hostname}`
+      : WEB_SERVER_URL;
     return (
       <>
         <div>Invite your friend by sending them the link below</div>
@@ -151,7 +157,7 @@ class Lobby extends Component {
             className="game-link-box"
             ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
           >
-            {`${WEB_SERVER_URL}/lobby/${this.state.id}`}
+            {`${server}/lobby/${this.state.id}`}
           </div>
           <div className="game-link-button" onClick={this.copyToClipboard}>
             {this.state.copied ? "Copied️!" : " Copy "}
