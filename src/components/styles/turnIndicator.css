@@ -1,0 +1,16 @@
+.turn-indicator.active {
+  animation-name: flash;
+  animation-duration: 0.7s;
+  animation-iteration-count: 3;
+}
+@keyframes flash {
+  0% {
+    color: #e57373;
+  }
+  50% {
+    color: black;
+  }
+  100% {
+    color: #e57373;
+  }
+}

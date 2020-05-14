@@ -1,13 +1,3 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
-.full_height {
-  height: 100%;
-  background: #fff9c4;
-}
 .card-container {
   display: flex;
   /* border: solid; */
