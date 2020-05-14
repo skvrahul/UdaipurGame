@@ -26,7 +26,7 @@ function App() {
         exact
         render={(props) => <HomePage {...props} history={history} />}
       />
-      <Route path="/game/:id" component={Lobby} />
+      <Route path="/lobby/:id" component={Lobby} />
       <Route path="/play" component={renderUdaipurClient} />
       <Route
         path="*"
