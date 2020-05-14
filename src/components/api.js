@@ -6,7 +6,7 @@ export class LobbyAPI {
     const { origin, protocol, hostname } = window.location;
     console.log(origin, protocol, hostname);
     this.api = ky.create({
-      prefixUrl: `${protocol}//${hostname}:${LOBBY_SERVER_PORT}/games/${GAME_NAME}`,
+      prefixUrl: `${protocol}//${hostname}/games/${GAME_NAME}`,
     });
   }
   async createRoom(numPlayers) {
