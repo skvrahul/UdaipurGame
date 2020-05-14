@@ -25,7 +25,7 @@
     "serve": "^11.3.0"
   },
   "scripts": {
-    "start": "run-p client express",
+    "start": "run-p server express",
     "serve": "serve -s build",
     "express": "node ./server.js",
     "client": "react-scripts start",
