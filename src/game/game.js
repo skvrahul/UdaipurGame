@@ -1,5 +1,5 @@
-import { RESOURCES, RARE_RESOURCES } from "./constants";
-import { GAME_NAME } from "./config";
+import { RESOURCES, RARE_RESOURCES } from "../constants";
+import { GAME_NAME } from "../config.js";
 
 //Defining some Game constants here
 const MIN_RARE_TRADE = 2;

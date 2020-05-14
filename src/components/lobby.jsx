@@ -1,27 +1,19 @@
 import React, { Component } from "react";
-import { LobbyAPI } from "./api";
+import { LobbyAPI } from "../api";
 import { Link } from "react-router-dom";
 import "./styles/lobby.css";
-import { UdaipurGame } from "../game";
+import { UdaipurGame } from "../game/game.js";
 import UdaipurBoard from "./board";
-import { SERVER_URL, GAME_SERVER_PORT } from "../config";
+import { WEB_SERVER_URL, GAME_SERVER_URL } from "../config.js";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 
 const api = new LobbyAPI();
-const { origin, protocol, hostname } = window.location;
-let serverURL = "";
-if (process.env.REACT_APP_GAME_SERVER_HOSTNAME) {
-  serverURL = `${process.env.REACT_APP_GAME_SERVER_HOSTNAME}:${GAME_SERVER_PORT}`;
-} else {
-  serverURL = `${protocol}//${hostname}:${GAME_SERVER_PORT}`;
-}
-
 const GameClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
   multiplayer: SocketIO({
-    server: serverURL,
+    server: GAME_SERVER_URL,
   }),
 });
 class Lobby extends Component {
@@ -150,7 +142,6 @@ class Lobby extends Component {
     );
   };
   gameExistsView = () => {
-    const { protocol, hostname } = window.location;
     const players = [0, 1];
     return (
       <>
@@ -160,7 +151,7 @@ class Lobby extends Component {
             className="game-link-box"
             ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
           >
-            {`${protocol}//${hostname}/lobby/${this.state.id}`}
+            {`${WEB_SERVER_URL}/lobby/${this.state.id}`}
           </div>
           <div className="game-link-button" onClick={this.copyToClipboard}>
             {this.state.copied ? "Copied️!" : " Copy "}

@@ -1,12 +1,10 @@
-import { SERVER_URL, LOBBY_SERVER_PORT, GAME_NAME } from "../config";
+import { GAME_NAME, GAME_SERVER_URL } from "./config";
 import ky from "ky";
 
 export class LobbyAPI {
   constructor() {
-    const { origin, protocol, hostname } = window.location;
-    console.log(origin, protocol, hostname);
     this.api = ky.create({
-      prefixUrl: `${protocol}//${hostname}/games/${GAME_NAME}`,
+      prefixUrl: `${GAME_SERVER_URL}/games/${GAME_NAME}`,
     });
   }
   async createRoom(numPlayers) {

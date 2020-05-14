@@ -1,18 +1,18 @@
 // src/App.js
-import { UdaipurGame } from "./game.js";
+import { UdaipurGame } from "./game/game.js";
 import { Client } from "boardgame.io/react";
 import UdaipurBoard from "./components/board.jsx";
 import { SocketIO } from "boardgame.io/multiplayer";
 import React from "react";
 import { Switch, Route, useHistory } from "react-router";
 import HomePage from "./components/homepage.jsx";
-import { SERVER_URL, GAME_SERVER_PORT } from "./config.js";
+import { GAME_SERVER_URL } from "./config.js";
 import Lobby from "./components/lobby.jsx";
 
 const UdaipurClient = Client({
   game: UdaipurGame,
   board: UdaipurBoard,
-  multiplayer: SocketIO({ server: SERVER_URL + ":" + GAME_SERVER_PORT }),
+  multiplayer: SocketIO({ server: GAME_SERVER_URL }),
 });
 const renderUdaipurClient = () => {
   return <UdaipurClient playerID="0"></UdaipurClient>;

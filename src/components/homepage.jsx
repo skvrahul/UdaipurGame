@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./styles/homePage.css";
-import { LobbyAPI } from "./api";
+import { LobbyAPI } from "../api";
 const info_texts = {
   start: "START info text",
   help: "HELP info text",
@@ -43,7 +43,7 @@ class HomePage extends Component {
       (roomID) => {
         console.log("Created room with roomID = ", roomID);
         this.setState({ loading: false });
-        history.push("/game/" + roomID);
+        history.push("/lobby/" + roomID);
       },
       (err) => {
         console.log(err);

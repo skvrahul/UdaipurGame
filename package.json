@@ -7,16 +7,9 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "boardgame.io": "^0.39.6",
-    "easy-peasy": "^3.3.0",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "express-favicon": "^2.0.1",
-    "http-proxy-middleware": "^1.0.3",
-    "koa-static": "^5.0.0",
-    "koa2-connect-history-api-fallback": "^0.1.2",
     "ky": "^0.19.1",
     "npm-run-all": "^4.1.5",
-    "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-popup": "^0.10.0",
@@ -27,13 +20,12 @@
     "serve": "^11.3.0"
   },
   "scripts": {
-    "start": "run-p heroku",
+    "start": "run-p server client",
     "client": "react-scripts start",
-    "server": "node -r esm src/server.js",
+    "server": "node -r esm src/gameServer.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku": "node -r esm ./server/combined.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
