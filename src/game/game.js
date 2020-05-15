@@ -1,4 +1,4 @@
-import { RESOURCES, LARGEST_HERD_BONUS } from "../constants";
+import { NUM_RESOURCES_END, RESOURCES, LARGEST_HERD_BONUS } from "../constants";
 import { GAME_NAME } from "../config.js";
 import { MoveValidate } from "./moveValidation";
 
@@ -242,7 +242,10 @@ export const UdaipurGame = {
       console.log("Ending game since we are out of cards!");
       return getWinner(G);
     }
-    if (Object.values(G.tokens).filter((res) => res.length > 4).length <= 5) {
+    if (
+      Object.values(G.tokens).filter((res) => res.length > 0).length <=
+      NUM_RESOURCES_END
+    ) {
       console.log(
         "Ending game since we have reached the minimum number of trading token stacks!"
       );
