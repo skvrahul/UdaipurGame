@@ -14,7 +14,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-left: -60px;
-  margin-top: 60px;
+  margin-top: 15vh;
   position: relative;
 }
 #menu-description {
@@ -28,9 +28,9 @@ body {
   margin-top: 50px;
   width: 100%;
 }
-.card {
-  width: 120px;
-  height: 180px;
+.menu-cards .card {
+  width: 8vw;
+  height: 12vw;
   background: white;
   border-style: solid;
   border-radius: 8px;
@@ -53,8 +53,8 @@ body {
 .menu-cards .card:hover {
   color: #212121;
   margin-top: 0px;
-  width: 130px;
-  height: 195px;
+  width: 10vw;
+  height: 15vw;
   margin-right: 10px;
   z-index: 1;
   cursor: pointer;
