@@ -22,3 +22,6 @@ export const RARE_RESOURCES = [
 export const MIN_RARE_TRADE = 2;
 export const MAX_HAND_SIZE = 7;
 export const LARGEST_HERD_BONUS = 5;
+
+// Number of resources present when it ends the game
+export const NUM_RESOURCES_END = 3;
