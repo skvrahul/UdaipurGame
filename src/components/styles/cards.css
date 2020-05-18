@@ -4,12 +4,9 @@
   margin: 2vh;
 }
 .card-exit {
-  opacity: 1;
 }
 
 .card-exit.card-exit-active {
-  opacity: 0.01;
-  transition: opacity 0.2s ease-in;
 }
 
 .card-enter {
@@ -17,8 +14,26 @@
 }
 
 .card-enter.card-enter-active {
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
+}
+
+.card-enter-done {
+  animation: pulsate 0.2s ease-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3, 1.3);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
 }
 
 .card {
