@@ -1,12 +1,21 @@
 import React, { Component } from "react";
-import { LobbyAPI } from "../api";
 import { Link } from "react-router-dom";
-import "./styles/lobby.css";
-import { UdaipurGame } from "../game/game.js";
-import UdaipurBoard from "./board";
-import { WEB_SERVER_URL, GAME_SERVER_URL, APP_PRODUCTION } from "../config.js";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
+
+// Styles
+import "./styles/lobby.css";
+
+// API Helper
+import { LobbyAPI } from "../api";
+
+// Components
+import { UdaipurGame } from "../game/game.js";
+import UdaipurBoard from "./board";
+import TemplatePage from "./templatePage";
+
+// Constants
+import { WEB_SERVER_URL, GAME_SERVER_URL, APP_PRODUCTION } from "../config.js";
 
 const api = new LobbyAPI();
 const server = APP_PRODUCTION
@@ -176,7 +185,6 @@ class Lobby extends Component {
       </>
     );
   };
-  onUnload = () => {};
   gameNotFoundView = () => {
     return (
       <>
@@ -202,12 +210,11 @@ class Lobby extends Component {
       return this.getGameClient();
     }
     return (
-      <div className="full_height">
-        <div className="title">
-          <h1>Udaipur</h1>
-          {this.state.id ? this.gameExistsView() : this.gameNotFoundView()}
-        </div>
-      </div>
+      <TemplatePage
+        content={
+          this.state.id ? this.gameExistsView() : this.gameNotFoundView()
+        }
+      />
     );
   }
 }
