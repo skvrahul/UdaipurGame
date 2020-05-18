@@ -10,6 +10,7 @@ import "./styles/resultsPage.css";
 import BoardCards from "./boardCards";
 import PlayerCards from "./playerCards";
 import { MoveValidate } from "../game/moveValidation";
+import SpecialTokens from "./specialTokens";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -261,27 +262,49 @@ class UdaipurBoard extends Component {
     const iAmActive = playerID === currentPlayer;
     const gameOver = this.props.ctx.gameover;
     if (gameOver) {
-      console.log(gameOver, " game OVER!");
       return this.getResultsPage(gameOver, playerID);
     }
-    document.background = "#";
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[playerID].cards;
+    const opponentCards = this.props.G.players[opponentID].cards;
     const deckLength = this.props.G.deckSize;
     const resourceTokens = this.props.G.tokens;
     return (
       <div className="container full_height">
         <div className="vsplit left">
-          {Object.keys(resourceTokens).map((key) => (
-            <TokenStack
-              id={key}
-              resource={key}
-              coinValues={resourceTokens[key]}
-            ></TokenStack>
-          ))}
+          {/* Common Resources tokens */}
+          {Object.keys(resourceTokens)
+            .filter((key) => !RARE_RESOURCES.includes(key))
+            .map((key) => (
+              <TokenStack
+                id={key}
+                resource={key}
+                coinValues={resourceTokens[key]}
+              ></TokenStack>
+            ))}
+          {/* Special tokens (3T, 4T, 5T and largest-herd) */}
+          <SpecialTokens />
+
+          {/* Rare Resources tokens */}
+          {Object.keys(resourceTokens)
+            .filter((key) => RARE_RESOURCES.includes(key))
+            .map((key) => (
+              <TokenStack
+                id={key}
+                resource={key}
+                coinValues={resourceTokens[key]}
+              ></TokenStack>
+            ))}
         </div>
         <div className="vsplit right">
           <div className="hsplit top">
+            <PlayerCards
+              cards={opponentCards}
+              selected={[]}
+              faceUp={false}
+              opponent={true}
+              onClick={null}
+            ></PlayerCards>
             <BoardCards
               faceUp={true}
               deckLength={deckLength}
@@ -303,8 +326,8 @@ class UdaipurBoard extends Component {
               cards={myCards}
               selected={this.state.handSelected}
               faceUp={true}
-              enabled={iAmActive}
               onClick={this.handleHandSelect}
+              opponent={false}
             ></PlayerCards>
             <TurnIndicator
               currentPlayer={currentPlayer}

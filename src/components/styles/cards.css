@@ -1,21 +1,12 @@
 .card-container {
   display: flex;
-  /* border: solid; */
-  padding: 8px;
-  margin: 26px;
+  padding: 0.5vh;
+  margin: 2vh;
 }
 .card-exit {
   opacity: 1;
 }
-.card.disabled {
-  opacity: 30%;
-  cursor: not-allowed;
-}
-.card.disabled:hover {
-  opacity: 50%;
-  cursor: not-allowed;
-  margin-top: 16px;
-}
+
 .card-exit.card-exit-active {
   opacity: 0.01;
   transition: opacity 0.2s ease-in;
@@ -43,6 +34,7 @@
   color: #616161;
   margin-right: -60px;
   transition: margin-top 0.3s;
+  cursor: pointer;
 }
 .deck.card {
   margin-right: 50px;
@@ -71,6 +63,10 @@
 .card-container .card.deck:hover {
   color: #212121;
   margin-top: 10px;
+}
+.card.disabled:hover {
+  cursor: not-allowed;
+  margin-top: 16px;
 }
 .card:hover {
   color: #212121;

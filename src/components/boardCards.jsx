@@ -14,6 +14,7 @@ class BoardCards extends Component {
               key={card.id}
               card={card}
               type="BOARD"
+              enabled={true}
               faceUp={this.props.faceUp}
               selected={this.props.selected.includes(card.id)}
               onClick={this.props.onClick}

@@ -1,0 +1,32 @@
+/* This style file contains styles for special(non-resource) tokens such as
+3,4,5-trade and largest-herd */
+.token {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: -3px 3px 0px 1px rgba(192, 179, 194, 1);
+  background-color: #78909c;
+  margin: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+}
+.token:hover {
+  background-color: #4a626d;
+}
+.token.three {
+  background-image: url("../../assets/trade_3.png");
+}
+.token.four {
+  background-image: url("../../assets/trade_4.png");
+}
+.token.five {
+  background-image: url("../../assets/trade_5.png");
+}
+.token.herd {
+  /* background-image: url("../../assets/largest_herd.png"); */
+}

@@ -23,6 +23,9 @@ class Card extends Component {
     if (this.props.type === "DECK") {
       cl += " deck";
     }
+    if (!this.props.enabled) {
+      cl += " disabled";
+    }
     return cl;
   };
   render() {
