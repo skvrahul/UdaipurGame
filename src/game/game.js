@@ -242,10 +242,11 @@ export const UdaipurGame = {
       console.log("Ending game since we are out of cards!");
       return getWinner(G);
     }
-    if (
-      Object.values(G.tokens).filter((res) => res.length > 0).length <=
-      NUM_RESOURCES_END
-    ) {
+    const numResourcesLeft = Object.values(G.tokens).filter((res) => {
+      return res.length > 0;
+    }).length;
+    console.log(numResourcesLeft, " resources left");
+    if (numResourcesLeft <= NUM_RESOURCES_END) {
       console.log(
         "Ending game since we have reached the minimum number of trading token stacks!"
       );

@@ -67,8 +67,17 @@ class UdaipurBoard extends Component {
     console.log(this.state.handSelected);
     const { G, ctx } = this.props;
     const validate = MoveValidate.trade(G, ctx, this.state.handSelected);
+    let tradeToken = -1;
     if (validate.valid) {
+      if (this.state.handSelected.length === 3) {
+        tradeToken = 3;
+      } else if (this.state.handSelected.length === 4) {
+        tradeToken = 4;
+      } else if (this.state.handSelected.length >= 5) {
+        tradeToken = 5;
+      }
       this.props.moves.trade(this.state.handSelected);
+      this.setState({ tradeToken: tradeToken });
     } else {
       return this.alertError(validate.message);
     }
@@ -283,7 +292,7 @@ class UdaipurBoard extends Component {
               ></TokenStack>
             ))}
           {/* Special tokens (3T, 4T, 5T and largest-herd) */}
-          <SpecialTokens />
+          <SpecialTokens tradeToken={this.state.tradeToken} />
 
           {/* Rare Resources tokens */}
           {Object.keys(resourceTokens)

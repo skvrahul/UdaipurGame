@@ -106,7 +106,7 @@
 }
 
 .card-inside.camel {
-  background-image: url("https://cdn.dribbble.com/users/1192832/screenshots/6987995/dribbble.png");
+  background-image: url("../../assets/camel.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
