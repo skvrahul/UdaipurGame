@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+  font-family: Varela Round;
+  margin: 0;
+}
+.full_height {
+  height: 100%;
+  background: #fff9c4;
+  text-align: center;
+}
+.title {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 50px;
+  width: 100%;
+}
