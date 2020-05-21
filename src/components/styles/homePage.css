@@ -1,14 +1,3 @@
-html,
-body {
-  height: 100%;
-  font-family: Varela Round;
-  margin: 0;
-}
-.full_height {
-  height: 100%;
-  background: #fff9c4;
-  text-align: center;
-}
 .menu-cards {
   font-size: 1vw;
   margin-left: auto;
@@ -19,14 +8,6 @@ body {
 }
 #menu-description {
   padding: 25px;
-}
-.title {
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-
-  margin-top: 50px;
-  width: 100%;
 }
 .menu-cards .card {
   width: 8vw;

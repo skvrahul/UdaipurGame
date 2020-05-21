@@ -1,24 +1,12 @@
 .card-container {
   display: flex;
-  /* border: solid; */
-  padding: 8px;
-  margin: 26px;
+  padding: 0.5vh;
+  margin: 2vh;
 }
 .card-exit {
-  opacity: 1;
 }
-.card.disabled {
-  opacity: 30%;
-  cursor: not-allowed;
-}
-.card.disabled:hover {
-  opacity: 50%;
-  cursor: not-allowed;
-  margin-top: 16px;
-}
+
 .card-exit.card-exit-active {
-  opacity: 0.01;
-  transition: opacity 0.2s ease-in;
 }
 
 .card-enter {
@@ -26,8 +14,26 @@
 }
 
 .card-enter.card-enter-active {
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
+}
+
+.card-enter-done {
+  animation: pulsate 0.2s ease-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3, 1.3);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
 }
 
 .card {
@@ -43,6 +49,7 @@
   color: #616161;
   margin-right: -60px;
   transition: margin-top 0.3s;
+  cursor: pointer;
 }
 .deck.card {
   margin-right: 50px;
@@ -72,6 +79,10 @@
   color: #212121;
   margin-top: 10px;
 }
+.card.disabled:hover {
+  cursor: not-allowed;
+  margin-top: 16px;
+}
 .card:hover {
   color: #212121;
 }
@@ -95,7 +106,7 @@
 }
 
 .card-inside.camel {
-  background-image: url("https://cdn.dribbble.com/users/1192832/screenshots/6987995/dribbble.png");
+  background-image: url("../../assets/camel.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;

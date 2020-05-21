@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles/homePage.css";
 import { LobbyAPI } from "../api";
+import TemplatePage from "./templatePage";
 const info_texts = {
   start: "START info text",
   help: "HELP info text",
@@ -53,42 +54,43 @@ class HomePage extends Component {
   };
   render() {
     return (
-      <div className="full_height">
-        <div className="title">
-          <h1>Udaipur</h1>
-        </div>
-        <div className="menu-cards">
-          <div
-            className="card"
-            onMouseEnter={() => this.hoverIn("start")}
-            onMouseLeave={() => this.hoverOut()}
-            onClick={() => this.createGame()}
-          >
-            <div className="card-inside start">
-              <h1>new game</h1>
+      <TemplatePage
+        content={
+          <>
+            <div className="menu-cards">
+              <div
+                className="card"
+                onMouseEnter={() => this.hoverIn("start")}
+                onMouseLeave={() => this.hoverOut()}
+                onClick={() => this.createGame()}
+              >
+                <div className="card-inside start">
+                  <h1>new game</h1>
+                </div>
+              </div>
+              <div
+                className="card"
+                onMouseEnter={() => this.hoverIn("join")}
+                onMouseLeave={() => this.hoverOut()}
+              >
+                <div className="card-inside join">
+                  <h1>join game</h1>
+                </div>
+              </div>
+              <div
+                className="card"
+                onMouseEnter={() => this.hoverIn("help")}
+                onMouseLeave={() => this.hoverOut()}
+              >
+                <div className="card-inside help">
+                  <h1>game help</h1>
+                </div>
+              </div>
             </div>
-          </div>
-          <div
-            className="card"
-            onMouseEnter={() => this.hoverIn("join")}
-            onMouseLeave={() => this.hoverOut()}
-          >
-            <div className="card-inside join">
-              <h1>join game</h1>
-            </div>
-          </div>
-          <div
-            className="card"
-            onMouseEnter={() => this.hoverIn("help")}
-            onMouseLeave={() => this.hoverOut()}
-          >
-            <div className="card-inside help">
-              <h1>game help</h1>
-            </div>
-          </div>
-        </div>
-        <div id="menu-description">{this.state.text}</div>
-      </div>
+            <div id="menu-description">{this.state.text}</div>
+          </>
+        }
+      />
     );
   }
 }

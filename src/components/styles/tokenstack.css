@@ -2,7 +2,7 @@
   /*   border-style:dashed; */
   min-height: 30px;
   position: relative;
-  padding: 8px;
+  padding: 2.5vh;
 }
 .coin-container.silk .coin {
   background: #ce93d8;
@@ -49,11 +49,11 @@
 }
 
 .coin {
-  width: 60px;
-  height: 60px;
+  width: 8vh;
+  height: 8vh;
   border-radius: 50%;
-  margin-left: -32px;
-  /*   border-style: solid; */
+  margin-left: -4vh;
+  font-size: 2vh;
   text-align: center;
   float: left;
   position: relative;

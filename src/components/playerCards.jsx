@@ -18,7 +18,7 @@ class PlayerCards extends Component {
                   card={card}
                   selected={this.props.selected.includes(card.id)}
                   faceUp={true}
-                  enabled={this.props.enabled}
+                  enabled={!this.props.opponent}
                   type="HAND"
                   onClick={this.props.onClick}
                 ></Card>
@@ -35,6 +35,7 @@ class PlayerCards extends Component {
                 card={card}
                 selected={this.props.selected.includes(card.id)}
                 faceUp={this.props.faceUp}
+                enabled={!this.props.opponent}
                 type="HAND"
                 onClick={this.props.onClick}
               ></Card>

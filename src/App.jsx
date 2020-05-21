@@ -3,9 +3,25 @@ import React from "react";
 import { Switch, Route, useHistory } from "react-router";
 import HomePage from "./components/homepage.jsx";
 import Lobby from "./components/lobby.jsx";
+import { Client } from "boardgame.io/react";
+import { APP_PRODUCTION, GAME_SERVER_URL } from "./config.js";
+import { UdaipurGame } from "./game/game.js";
+import UdaipurBoard from "./components/board.jsx";
+import { SocketIO } from "boardgame.io/multiplayer";
 
 function App() {
   const history = useHistory();
+  const server = APP_PRODUCTION
+    ? `https://${window.location.hostname}`
+    : GAME_SERVER_URL;
+  const UdaipurClient = Client({
+    game: UdaipurGame,
+    board: UdaipurBoard,
+    multiplayer: SocketIO({ server: server }),
+  });
+  const renderUdaipurClient = () => {
+    return <UdaipurClient playerID="0"></UdaipurClient>;
+  };
   return (
     <Switch>
       <Route
@@ -13,6 +29,7 @@ function App() {
         exact
         render={(props) => <HomePage {...props} history={history} />}
       />
+      <Route path="/play" exact render={(props) => renderUdaipurClient()} />
       <Route path="/lobby/:id" component={Lobby} />
       <Route
         path="*"
