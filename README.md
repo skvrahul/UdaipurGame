@@ -21,6 +21,7 @@ The only departure from the original rules in Udaipur is the removal of **Seal o
  - Run `npm run server` to run the game server
  
 ## Deployment
+ - Set `APP_PRODUCTION=true` in **src/config.js**
  - Run `npm run start` to deploy the app
  
  You can deploy it yourself on Heroku.  
