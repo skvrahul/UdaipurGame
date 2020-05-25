@@ -10,6 +10,8 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import HomePage from "./components/homePage.jsx";
 import HelpPage from "./components/helpPage.jsx";
 import JoinPage from "./components/joinPage.jsx";
+import { isMobile } from "react-device-detect";
+import MobileCover from "./components/mobileCover.jsx";
 
 function App() {
   const history = useHistory();
@@ -24,6 +26,9 @@ function App() {
   const renderUdaipurClient = () => {
     return <UdaipurClient playerID="0"></UdaipurClient>;
   };
+  if (isMobile) {
+    return <MobileCover />;
+  }
   return (
     <Switch>
       <Route
