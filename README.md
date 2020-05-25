@@ -8,13 +8,15 @@ A minimalistic clone of the popular 2-player card trading board game [Jaipur](ht
 
 Jaipur is a 2 player, trading card game where you and your opponent are traders and are trying to make the most money, buying and selling resources from the market. Resources initially sell for a larger amount and start to yield lesser money as more of them get sold in the market.
 
-Camels act as Wildcards, by allowing them to be traded for any other resource, however camels cannot be sold, only traded. This requires the player to strike a balance between taking and selling camels.
+However not all resources have the same availability and selling price along with Rare Resources having the added constraint of needing to be sold in a group of atleast 2 cards at a time.
 
-Find a quick game guide here:  
+In the game of Jaipur, players have to strike a balance between trying to trade rarer resources which sell for more(such as Gold, Diamond and Silver) and the more abundant resources which sell for less(Leather, Spices and Silk).
+
+For a more comprehensive explanation of the rules, watch the game guide here:  
 [![Jaipur - Rules](https://img.youtube.com/vi/SD3g4gOf_N8/0.jpg)](https://www.youtube.com/watch?v=SD3g4gOf_N8).
 
-You can also find help within the Udaipur Website under [Game Help]()
-The only departure from the original rules in Udaipur is the removal of **Seal of Excellence** to simplify and shorten the game.
+You can also find help within the Udaipur Website under [Game Help](https://udaipur-game.herokuapp.com/help)
+The only departure from the original rules in Udaipur is the removal of the **Seal of Excellence** tokens to simplify and shorten the game.
 
 ## Development
 
