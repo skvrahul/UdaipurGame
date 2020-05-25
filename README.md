@@ -34,12 +34,12 @@ You can deploy it yourself on Heroku using the button below .
 
 ### Home Page
 
-[Home Page](demo/udaipur_homePage.gif)
+![Home Page](demo/udaipur_homePage.gif)
 
 ### Lobby
 
-[Lobby](demo/udaipur_lobby.png)
+![Lobby](demo/udaipur_lobby.png)
 
 ### Game Board
 
-[Game Board](demo/udaipur_board.png)
+![Game Board](demo/udaipur_board.png)
