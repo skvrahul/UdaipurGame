@@ -19,6 +19,11 @@ export const RARE_RESOURCES = [
   RESOURCES.gold,
   RESOURCES.silver,
 ];
+export const COMMON_RESOURCES = [
+  RESOURCES.silk,
+  RESOURCES.leather,
+  RESOURCES.spices,
+];
 export const MIN_RARE_TRADE = 2;
 export const MAX_HAND_SIZE = 7;
 export const LARGEST_HERD_BONUS = 5;

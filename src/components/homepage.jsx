@@ -3,9 +3,9 @@ import "./styles/homePage.css";
 import { LobbyAPI } from "../api";
 import TemplatePage from "./templatePage";
 const info_texts = {
-  start: "START info text",
-  help: "HELP info text",
-  join: "JOIN info text",
+  start: "Create a new room and invite your friend to join",
+  help: "Game rules and guide to playing Udaipur",
+  join: "Join a room using the room code",
 };
 const api = new LobbyAPI();
 class HomePage extends Component {
@@ -31,7 +31,6 @@ class HomePage extends Component {
     });
   };
   createGame = () => {
-    const history = this.props.history;
     console.log("createGame");
     if (this.state.loading) {
       return;
@@ -42,6 +41,7 @@ class HomePage extends Component {
     }
     api.createRoom(2).then(
       (roomID) => {
+        const history = this.props.history;
         console.log("Created room with roomID = ", roomID);
         this.setState({ loading: false });
         history.push("/lobby/" + roomID);
@@ -53,6 +53,7 @@ class HomePage extends Component {
     );
   };
   render() {
+    const history = this.props.history;
     return (
       <TemplatePage
         content={
@@ -72,6 +73,9 @@ class HomePage extends Component {
                 className="card"
                 onMouseEnter={() => this.hoverIn("join")}
                 onMouseLeave={() => this.hoverOut()}
+                onClick={() => {
+                  history.push("/join");
+                }}
               >
                 <div className="card-inside join">
                   <h1>join game</h1>
@@ -81,6 +85,9 @@ class HomePage extends Component {
                 className="card"
                 onMouseEnter={() => this.hoverIn("help")}
                 onMouseLeave={() => this.hoverOut()}
+                onClick={() => {
+                  history.push("/help");
+                }}
               >
                 <div className="card-inside help">
                   <h1>game help</h1>

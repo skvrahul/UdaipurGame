@@ -52,7 +52,7 @@ class Lobby extends Component {
     window.removeEventListener("beforeunload", this.cleanup.bind(this));
   }
   joinRoom = (player_no) => {
-    const username = "playa_" + player_no;
+    const username = "Player " + player_no;
     if (this.state.id) {
       api.joinRoom(this.state.id, username, player_no).then(
         (authToken) => {
@@ -171,6 +171,10 @@ class Lobby extends Component {
           <div className="game-link-button" onClick={this.copyToClipboard}>
             {this.state.copied ? "Copied️!" : " Copy "}
           </div>
+        </div>
+        <div>
+          Game Code
+          <br /> <div class="game-code">{this.state.id}</div>
         </div>
         <div className="player-list">
           {players.map((p) => {

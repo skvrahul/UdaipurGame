@@ -3,18 +3,18 @@
   padding: 0.5vh;
   margin: 2vh;
 }
-.card-exit {
-}
+/* .card-exit {
+} */
 
-.card-exit.card-exit-active {
-}
+/* .card-exit.card-exit-active {
+} */
 
 .card-enter {
   opacity: 0.01;
 }
 
-.card-enter.card-enter-active {
-}
+/* .card-enter.card-enter-active {
+} */
 
 .card-enter-done {
   animation: pulsate 0.2s ease-out;

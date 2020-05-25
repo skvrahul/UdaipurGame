@@ -1,0 +1,39 @@
+.game-code-tb {
+  padding: 0;
+  height: 40px;
+  position: relative;
+  left: 0;
+  outline: none;
+  padding: 12px;
+
+  background-color: #cbba83;
+
+  text-align: center;
+  border: solid;
+  border-radius: 8px;
+  margin: 8px;
+  border-color: #757575;
+  font-size: 26px;
+}
+.game-code-submit {
+  font-family: Varela Round;
+  background-color: #9fa8da;
+  /*   width: 12vmin;
+    height: 8vmin; */
+  min-width: 50px;
+  min-height: 30px;
+  font-size: 2vmin;
+  /*   border: none; */
+  color: #111b1b;
+  border-radius: 8px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: -0px 8px 0px 0px #616161;
+  white-space: normal;
+  margin: 8px;
+}
+.game-code-submit:active {
+  box-shadow: -0px 2px 0px 0px #616161;
+  transform: translateY(4px) translateX(-1px);
+}

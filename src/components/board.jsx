@@ -268,7 +268,6 @@ class UdaipurBoard extends Component {
     const playerID = this.props.playerID;
     const opponentID = this.getOtherPlayer(playerID);
     const currentPlayer = this.props.ctx.currentPlayer;
-    const iAmActive = playerID === currentPlayer;
     const gameOver = this.props.ctx.gameover;
     if (gameOver) {
       return this.getResultsPage(gameOver, playerID);

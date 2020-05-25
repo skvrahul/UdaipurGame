@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import ReactTooltip from "react-tooltip";
 import "./styles/cards.css";
+import { RESOURCES } from "../constants";
 class Card extends Component {
   selectedHandler = () => {
     if (this.props.onClick) {
@@ -29,13 +31,22 @@ class Card extends Component {
     return cl;
   };
   render() {
+    let tooltip_text = null;
+    if (Object.values(RESOURCES).includes(this.props.card.type)) {
+      tooltip_text = this.props.card.type;
+    }
     return (
-      <div onClick={this.selectedHandler} className={this.getCardClass()}>
+      <div
+        data-tip={tooltip_text}
+        onClick={this.selectedHandler}
+        className={this.getCardClass()}
+      >
         <div className={"card-inside " + this.getColorClass()}>
           {this.props.type === "DECK" ? (
             <h3 color="white">{this.props.length}</h3>
           ) : null}
         </div>
+        <ReactTooltip />
       </div>
     );
   }
