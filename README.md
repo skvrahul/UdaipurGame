@@ -1,7 +1,7 @@
 ![Header](src/assets/UdaipurCover.png)
 # Udaipur Game
 
-A minimalistic clone of the popular board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur)built using  [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.
+A minimalistic clone of the popular board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur) with **Online Multiplayer** support built using  [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.   
 
 ## About the Game
  
@@ -21,6 +21,7 @@ The only departure from the original rules in Udaipur is the removal of **Seal o
  - Run `npm run server` to run the game server
  
 ## Deployment
+ - Set `APP_PRODUCTION=true` in **src/config.js**
  - Run `npm run start` to deploy the app
  
  You can deploy it yourself on Heroku.  

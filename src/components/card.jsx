@@ -32,8 +32,13 @@ class Card extends Component {
   };
   render() {
     let tooltip_text = null;
-    if (Object.values(RESOURCES).includes(this.props.card.type)) {
-      tooltip_text = this.props.card.type;
+    const card = this.props.card;
+    if (
+      card &&
+      Object.values(RESOURCES).includes(card.type) &&
+      this.props.faceUp
+    ) {
+      tooltip_text = card.type;
     }
     return (
       <div

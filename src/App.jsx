@@ -26,7 +26,7 @@ function App() {
   const renderUdaipurClient = () => {
     return <UdaipurClient playerID="0"></UdaipurClient>;
   };
-  if (isMobile) {
+  if (isMobile && APP_PRODUCTION) {
     return <MobileCover />;
   }
   return (
