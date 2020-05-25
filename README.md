@@ -1,8 +1,8 @@
 ![Header](src/assets/UdaipurCover.png)
 
-# Udaipur Game
+# Udaipur
 
-A minimalistic clone of the popular board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur) with **Online Multiplayer** support built using [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.
+A minimalistic clone of the popular 2-player card trading board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur) with **Online Multiplayer** support built using [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.
 
 ## About the Game
 
