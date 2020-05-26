@@ -8,28 +8,26 @@
   position: relative;
 }
 .top {
-  height: 65%;
+  height: 60%;
   /* border: solid; */
   top: 0;
   /*   background: yellow; */
 }
 .bottom {
-  height: 35%;
+  height: 40%;
   /* border: solid; */
   top: 0;
   /*   background: green; */
 }
 .left {
-  width: 30%;
+  width: 43%;
   /* border: solid; */
-  margin: 8px;
   left: 0;
   /*   background: blue; */
 }
 .right {
   /* border: solid; */
-  margin: 8px;
   right: 0;
   /*   background: red; */
-  width: 70%;
+  width: 57%;
 }

@@ -37,8 +37,8 @@
 }
 
 .card {
-  width: 100px;
-  height: 150px;
+  width: 10vh;
+  height: 15vh;
   background: white;
   border-style: solid;
   border-radius: 8px;
@@ -47,7 +47,7 @@
   align-items: center;
   margin: 16px;
   color: #616161;
-  margin-right: -60px;
+  margin-right: min(-60px, calc(-12vh + 5vw));
   transition: margin-top 0.3s;
   cursor: pointer;
 }
@@ -65,14 +65,14 @@
 
 .card.selected {
   margin-top: 0px;
-  /*   color: #66bb6a; */
+}
+.card:hover {
+  color: #43a047;
 }
 .card-container .card:hover {
-  color: #212121;
   margin-top: 0px;
 }
 .camels .card:hover {
-  color: #212121;
   margin-top: 0px;
 }
 .card-container .card.deck:hover {
@@ -80,11 +80,12 @@
   margin-top: 10px;
 }
 .card.disabled:hover {
+  color: #212121;
   cursor: not-allowed;
   margin-top: 16px;
 }
-.card:hover {
-  color: #212121;
+.card.selected:hover {
+  color: #e53935;
 }
 .card-inside {
   width: 85%;
