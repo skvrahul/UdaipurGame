@@ -2,8 +2,11 @@
 
 # Udaipur
 
-A minimalistic clone of the popular 2-player card trading board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur) with **Online Multiplayer** support built using [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.   
-You can try out the game at https://udaipur-game.herokuapp.com/ (It can be a bit slow to load initially since it's currently running on a free dyno)
+A minimalistic clone of the popular 2-player card trading board game [Jaipur](https://boardgamegeek.com/boardgame/54043/jaipur) with **Online Multiplayer** support built using [boardgame.io](github.com/nicoldavis/boardgame.io) and React JS.  
+
+You can try out the game at https://udaipur-game.herokuapp.com/ (It can be a bit slow to load initially since it's currently running on a free dyno).  
+   
+Jaipur on [BoardGameGeek](https://boardgamegeek.com/boardgame/54043/jaipur)
 
 
 ## About the Game
