@@ -1,24 +1,45 @@
 import React, { Component } from "react";
+import TemplatePage from "./templatePage";
+import "./styles/resultPage.css";
 class ResultPage extends Component {
   render() {
-    return (
-      <div className="full_height">
-        <div className="title">
-          <h1>Udaipur</h1>
+    const playerID = this.props.playerID;
+    const gameOver = this.props.gameOver;
+    const iWon = String(gameOver.winner) === String(playerID);
+    const content = (
+      <>
+        <div>
+          {iWon ? "Congratulations you have won!" : "I'm afraid you have lost"}
         </div>
-        <div>Congratulations you have won!</div>
-        <div className="scoreboard">
-          <div className="score-item winner">
-            <span className="username">skvrahul</span>
-            <span className="score"> 96 </span>
+        <div class="scoreboard">
+          <div
+            class={
+              "score-item " +
+              (String(gameOver.winner) === "0" ? "winner " : "loser ") +
+              (playerID === "0" ? "me" : "")
+            }
+          >
+            <span class="username">
+              {playerID === "0" ? "You" : "Opponent"}
+            </span>
+            <span class="score">{gameOver.scores[0]}</span>
           </div>
-          <div className="score-item loser me">
-            <span className="username">some-dude</span>
-            <span className="score"> 69 </span>
+          <div
+            class={
+              "score-item " +
+              (String(gameOver.winner) === "1" ? "winner " : "loser ") +
+              (playerID === "1" ? "me" : "")
+            }
+          >
+            <span class="username">
+              {playerID === "1" ? "You" : "Opponent"}
+            </span>
+            <span class="score"> {gameOver.scores[1]}</span>
           </div>
         </div>
-      </div>
+      </>
     );
+    return <TemplatePage content={content}></TemplatePage>;
   }
 }
 

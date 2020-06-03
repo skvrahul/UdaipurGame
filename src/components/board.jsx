@@ -6,11 +6,11 @@ import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
 import "./styles/cards.css";
 import "./styles/boardLayout.css";
-import "./styles/resultsPage.css";
 import BoardCards from "./boardCards";
 import PlayerCards from "./playerCards";
 import { MoveValidate } from "../game/moveValidation";
 import SpecialTokens from "./specialTokens";
+import ResultPage from "./resultPage";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -225,52 +225,13 @@ class UdaipurBoard extends Component {
       return 0;
     }
   };
-  getResultsPage = (gameOver, playerID) => {
-    const iWon = String(gameOver.winner) === String(playerID);
-    return (
-      <div class="full_height">
-        <div class="title">
-          <h1>Udaipur</h1>
-        </div>
-        <div>
-          {iWon ? "Congratulations you have won!" : "I'm afraid you have lost"}
-        </div>
-        <div class="scoreboard">
-          <div
-            class={
-              "score-item " +
-              (String(gameOver.winner) === "0" ? "winner " : "loser ") +
-              (playerID === "0" ? "me" : "")
-            }
-          >
-            <span class="username">
-              {playerID === "0" ? "You" : "Opponent"}
-            </span>
-            <span class="score">{gameOver.scores[0]}</span>
-          </div>
-          <div
-            class={
-              "score-item " +
-              (String(gameOver.winner) === "1" ? "winner " : "loser ") +
-              (playerID === "1" ? "me" : "")
-            }
-          >
-            <span class="username">
-              {playerID === "1" ? "You" : "Opponent"}
-            </span>
-            <span class="score"> {gameOver.scores[1]}</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
   render() {
     const playerID = this.props.playerID;
     const opponentID = this.getOtherPlayer(playerID);
     const currentPlayer = this.props.ctx.currentPlayer;
     const gameOver = this.props.ctx.gameover;
     if (gameOver) {
-      return this.getResultsPage(gameOver, playerID);
+      return <ResultPage playerID={playerID} gameOver={gameOver}></ResultPage>;
     }
     const boardCards = this.props.G.board;
     const myCards = this.props.G.players[playerID].cards;
