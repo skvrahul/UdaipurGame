@@ -11,6 +11,7 @@ import PlayerCards from "./playerCards";
 import { MoveValidate } from "../game/moveValidation";
 import SpecialTokens from "./specialTokens";
 import ResultPage from "./resultPage";
+import Sidebar from "./sidebar";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -304,6 +305,7 @@ class UdaipurBoard extends Component {
             ></TurnIndicator>
           </div>
         </div>
+        <Sidebar chat={this.props.G.chat} me={playerID}></Sidebar>
       </div>
     );
   }

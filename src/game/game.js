@@ -1,4 +1,9 @@
-import { NUM_RESOURCES_END, RESOURCES, LARGEST_HERD_BONUS } from "../constants";
+import {
+  ACTIONS,
+  NUM_RESOURCES_END,
+  RESOURCES,
+  LARGEST_HERD_BONUS,
+} from "../constants";
 import { GAME_NAME } from "../config.js";
 import { MoveValidate } from "./moveValidation";
 
@@ -93,6 +98,7 @@ export const UdaipurGame = {
     const deck = generateDeck();
     var start = {
       board: [],
+      chat: [],
       tokens: {},
       players: {
         0: { trade_tokens: [], cards: [], T3: 0, T4: 0, T5: 0 },
@@ -138,7 +144,9 @@ export const UdaipurGame = {
           board.push(G.deck.pop());
           board = board.filter((card) => card.id !== cardToTake.id);
         }
+        let actionString = `Player ${p} took one card (${cardToTake.type}) from the board.`;
         G.board = board;
+        G.chat.push({ player: p, action: actionString, automated: true });
         ctx.events.endTurn();
       } else {
         return Error(validMove.message);
@@ -162,11 +170,12 @@ export const UdaipurGame = {
         let newPlayerCards = G.players[p].cards.filter(
           (card) => !replaceIDs.includes(card.id)
         );
+        let actionString = `Player ${p} traded some cards from his hand to the board.`;
         newBoard.push(...cardsToReplace);
         newPlayerCards.push(...cardsToRemove);
         G.players[p].cards = newPlayerCards;
         G.board = newBoard;
-        console.log("Ending turn");
+        G.chat.push({ player: p, action: actionString, automated: true });
         ctx.events.endTurn();
       } else {
         return Error(validate.message);
@@ -180,6 +189,7 @@ export const UdaipurGame = {
         let newBoard = G.board.filter((card) => card.type !== RESOURCES.camel);
         let camels = G.board.filter((card) => card.type === RESOURCES.camel);
         const numCamels = camels.length;
+        let actionString = `Player ${p} took all the Camels from the board ( ${numCamels} Camels)`;
         while (camels.length > 0) {
           newPlayerCards.push(camels.pop());
         }
@@ -191,6 +201,7 @@ export const UdaipurGame = {
         G.players[p].cards = newPlayerCards;
         G.board = newBoard;
         console.log("Ending turn");
+        G.chat.push({ player: p, action: actionString, automated: true });
         ctx.events.endTurn();
       } else {
         return Error(validMove.message);
@@ -215,15 +226,20 @@ export const UdaipurGame = {
             value: G.tokens[cardType].pop(),
           });
         }
+        let actionString = `Player ${p} sold ${tradeSize} of their ${cardType} card(s) `;
+
         if (tradeSize === 3) {
           G.players[p].T3 += 1;
+          actionString += `and was awarded a '3Cards Bonus Token'`;
         } else if (tradeSize === 4) {
           G.players[p].T4 += 1;
+          actionString += `and was awarded a '4Cards Bonus Token'`;
         } else if (tradeSize >= 5) {
           G.players[p].T5 += 1;
+          actionString += `and was awarded a '5Cards Bonus Token'`;
         }
         G.players[p].cards = newPlayerCards;
-        console.log("Ending turn");
+        G.chat.push({ player: p, action: actionString, automated: true });
         ctx.events.endTurn();
       } else {
         return Error(validMove.message);

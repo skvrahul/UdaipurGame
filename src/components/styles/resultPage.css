@@ -10,7 +10,7 @@
 .score {
   padding: 10px;
 }
-.me {
+.score-item.me {
   font-size: 32px;
   animation-name: pulse;
   animation-duration: 1s;

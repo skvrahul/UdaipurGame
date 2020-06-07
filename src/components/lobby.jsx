@@ -204,6 +204,7 @@ class Lobby extends Component {
     return (
       <GameClient
         gameID={this.state.id}
+        players={this.state.joined}
         playerID={String(this.state.myID)}
         credentials={this.state.userAuthToken}
       ></GameClient>

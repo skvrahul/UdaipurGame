@@ -5,6 +5,12 @@ export const Modes = Object.freeze({
   TAKE_CAMELS: 3,
   NONE: -1,
 });
+export const ACTIONS = Object.freeze({
+  trade: "trade",
+  takeOne: "takeOne",
+  takeCamels: "takeCamels",
+  takeMany: "takeMany",
+});
 export const RESOURCES = Object.freeze({
   camel: "CAMEL",
   gold: "GOLD",
@@ -29,4 +35,4 @@ export const MAX_HAND_SIZE = 7;
 export const LARGEST_HERD_BONUS = 5;
 
 // Number of resources present when it ends the game
-export const NUM_RESOURCES_END = 3;
+export const NUM_RESOURCES_END = 5;

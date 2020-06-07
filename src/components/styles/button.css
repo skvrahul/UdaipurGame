@@ -3,18 +3,18 @@
   background-color: #9fa8da;
   width: 7vh;
   height: 4vh;
-  /* min-width: 50px;
-  min-height: 30px; */
   font-size: 1.5vh;
   color: #111b1b;
   border-radius: 8px;
-  text-align: center;
-  display: inline-block;
-  vertical-align: top;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   box-shadow: -0px 8px 0px 0px #616161;
-  white-space: normal;
   margin: 8px;
+  padding: 2.2vh;
+  padding-left: 5vh;
+  padding-right: 5vh;
 }
 .deep-button:active {
   box-shadow: -0px 2px 0px 0px #616161;

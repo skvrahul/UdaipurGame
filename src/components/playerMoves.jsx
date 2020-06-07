@@ -30,7 +30,7 @@ class PlayerMoves extends Component {
           disabled={!this.props.active.trade}
           onClick={this.props.onTrade}
         >
-          Sell
+          Sell Resource(s)
         </button>
       </div>
     );
