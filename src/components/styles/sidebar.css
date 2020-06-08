@@ -48,7 +48,7 @@
   margin: 0;
   z-index: -1;
   /* border: solid; */
-  border-radius: 8px;
+  border-radius: 1vh;
   height: 20%;
   position: absolute;
   top: 40%;
@@ -57,6 +57,7 @@
   width: 100%;
   background: rgba(175, 142, 181, 0.7);
   display: flex;
+  font-size: 2vh;
   justify-content: center;
   align-items: center;
 }
