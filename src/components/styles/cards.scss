@@ -1,18 +1,17 @@
-.card-container {
-  display: flex;
-  padding: 0.5vh;
-  margin: 2vh;
-}
-/* .card-exit {
-} */
-
-/* .card-exit.card-exit-active {
-} */
-
+/**
+    BEGIN Component Animations
+**/
 .card-enter {
   opacity: 0.01;
 }
 
+/* .card-enter.card-enter-active {
+} */
+
+.card-enter-done {
+  animation: pulsate 0.2s ease-out;
+  animation-iteration-count: 1;
+}
 /* .card-enter.card-enter-active {
 } */
 
@@ -36,61 +35,94 @@
   }
 }
 
+/**
+    END Component Animations
+**/
+
+// DEFINE VARIABLES
+$small-gap: 0.5vh;
+$med-gap: 1.5vh;
+$card-width: 10vh;
+$card-height: $card-width * 1.5;
+$card-break-gap: 1.5 * $card-width;
+$card-right-offset: -$card-width + ($card-width * 0.2);
+$std-border-radius: 1vh;
+
+.card-container {
+  display: flex;
+  padding: $small-gap;
+  margin: 2vh;
+  height: $card-height * 1.2;
+}
 .card {
-  width: 10vh;
-  height: 15vh;
+  width: $card-width;
+  height: $card-height;
   background: white;
   border-style: solid;
-  border-radius: 8px;
+  border-radius: $std-border-radius;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  margin: 16px;
+  margin: $med-gap;
   color: #616161;
-  margin-right: min(-60px, calc(-12vh + 5vw));
+  margin-right: $card-right-offset;
   transition: margin-top 0.3s;
   cursor: pointer;
 }
-.deck.card {
-  margin-right: 50px;
-  box-shadow: -4px 4px 0px 1px #616161;
-}
-.camels {
-  margin-right: 120px;
-  display: flex;
-}
-.camels .card {
-  margin-right: -110px;
+.card:hover {
+  color: #212121;
 }
 
 .card.selected {
   margin-top: 0px;
-}
-.card:hover {
   color: #43a047;
-}
-.card-container .card:hover {
-  margin-top: 0px;
-}
-.camels .card:hover {
-  margin-top: 0px;
-}
-.card-container .card.deck:hover {
-  color: #212121;
-  margin-top: 10px;
-}
-.card.disabled:hover {
-  color: #212121;
-  cursor: not-allowed;
-  margin-top: 16px;
 }
 .card.selected:hover {
   color: #e53935;
 }
+
+/** Card representing the deck **/
+.deck.card {
+  margin-right: $card-break-gap;
+  box-shadow: -4px 4px 0px 1px #616161;
+}
+
+/** container representing grouped camels **/
+.camels {
+  margin-right: $card-break-gap;
+  display: flex;
+}
+.camels .card {
+  margin-right: $card-right-offset;
+}
+.camels .card:hover {
+  margin-top: 0px;
+}
+
+/** Container holding a bunch of cards **/
+.card-container .card:hover {
+  margin-top: 0px;
+}
+.card-container .card.deck:hover {
+  color: #212121;
+  margin-top: $med-gap * 0.6;
+}
+.card.disabled:hover {
+  color: #212121;
+  cursor: not-allowed;
+  margin-top: $med-gap;
+}
+.card.selected:hover {
+  color: #e53935;
+}
+
+/** The inner portion of the Card containing
+    the resource colors
+**/
 .card-inside {
   width: 85%;
   height: 85%;
-  border-radius: 4px;
+  border-radius: $std-border-radius * 0.2;
   display: flex;
   align-items: center;
   justify-content: center;

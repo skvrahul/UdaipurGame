@@ -4,7 +4,7 @@ import Popup from "react-popup";
 import TokenStack from "./tokenStack";
 import TurnIndicator from "./turnIndicator";
 import { RESOURCES, RARE_RESOURCES } from "../constants";
-import "./styles/cards.css";
+import "./styles/cards.scss";
 import "./styles/boardLayout.css";
 import BoardCards from "./boardCards";
 import PlayerCards from "./playerCards";

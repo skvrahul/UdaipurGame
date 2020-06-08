@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactTooltip from "react-tooltip";
-import "./styles/cards.css";
+import "./styles/cards.scss";
 import { RESOURCES } from "../constants";
 class Card extends Component {
   selectedHandler = () => {
