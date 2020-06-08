@@ -38,8 +38,8 @@ Deploy to **Heroku** with the button below.
 
 ## Future Additions
 
-- [x] Player move history in a sidebar    (Commit [69e19588e7](https://github.com/skvrahul/UdaipurGame/commit/69e19588e7bd186ae4be670f32f510e48848a2c9))
-- [ ] Player Scoreboard while playing
+- [x] Player move history in a sidebar (Commit [69e19588e7](https://github.com/skvrahul/UdaipurGame/commit/69e19588e7bd186ae4be670f32f510e48848a2c9))
+- [x] Display player Scoreboard while playing (Commit [2629c091f](https://github.com/skvrahul/UdaipurGame/commit/2629c091fa78b1268923d19f72fce92c0741c133))
 - [ ] Use boardgame.io's STRIP_SECRETS to ensure the Client doesn't receive extra information about the opponent
 - [ ] Clearer way to represent players receiving token(s)
 
