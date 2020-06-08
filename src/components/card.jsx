@@ -10,6 +10,11 @@ class Card extends Component {
       console.log("No handler passed for onSelect");
     }
   };
+  capitalize = (s) => {
+    if (typeof s !== "string") return "";
+    s = s.toLowerCase();
+    return s.toLowerCase().charAt(0).toUpperCase() + s.slice(1);
+  };
   getColorClass = () => {
     if (this.props.faceUp && this.props.card) {
       return this.props.card.type.toLowerCase();
@@ -38,7 +43,7 @@ class Card extends Component {
       Object.values(RESOURCES).includes(card.type) &&
       this.props.faceUp
     ) {
-      tooltip_text = card.type;
+      tooltip_text = this.capitalize(card.type);
     }
     return (
       <div

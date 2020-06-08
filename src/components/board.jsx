@@ -12,6 +12,7 @@ import { MoveValidate } from "../game/moveValidation";
 import SpecialTokens from "./specialTokens";
 import ResultPage from "./resultPage";
 import Sidebar from "./sidebar";
+import ScoreBoard from "./scoreBoard";
 
 class UdaipurBoard extends Component {
   constructor(props) {
@@ -239,6 +240,11 @@ class UdaipurBoard extends Component {
     const opponentCards = this.props.G.players[opponentID].cards;
     const deckLength = this.props.G.deckSize;
     const resourceTokens = this.props.G.tokens;
+    const iAmActive = currentPlayer === playerID;
+    const tradeTokens = this.props.G.players[playerID].trade_tokens;
+    const t3 = this.props.G.players[playerID].T3;
+    const t4 = this.props.G.players[playerID].T4;
+    const t5 = this.props.G.players[playerID].T5;
     return (
       <div className="container full_height">
         <div className="vsplit left">
@@ -280,7 +286,7 @@ class UdaipurBoard extends Component {
               deckLength={deckLength}
               onClick={this.handleBoardSelect}
               cards={boardCards}
-              selected={this.state.boardSelected}
+              selected={iAmActive ? this.state.boardSelected : []}
             ></BoardCards>
             <PlayerMoves
               active={this.getActiveButtons()}
@@ -294,7 +300,7 @@ class UdaipurBoard extends Component {
           <div className="hsplit bottom">
             <PlayerCards
               cards={myCards}
-              selected={this.state.handSelected}
+              selected={iAmActive ? this.state.handSelected : []}
               faceUp={true}
               onClick={this.handleHandSelect}
               opponent={false}
@@ -303,6 +309,12 @@ class UdaipurBoard extends Component {
               currentPlayer={currentPlayer}
               playerID={playerID}
             ></TurnIndicator>
+            <ScoreBoard
+              T3={t3}
+              T4={t4}
+              T5={t5}
+              tradeTokens={tradeTokens}
+            ></ScoreBoard>
           </div>
         </div>
         <Sidebar chat={this.props.G.chat} me={playerID}></Sidebar>

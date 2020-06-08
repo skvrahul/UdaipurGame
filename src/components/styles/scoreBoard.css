@@ -1,0 +1,39 @@
+.game-scoreboard {
+  font-size: 3vh;
+  color: #484848;
+  margin-top: 2vh;
+}
+.game-scoreboard .mini-token {
+  width: 4vh;
+  height: 4vh;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #78909c;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 45% 50%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.game-scoreboard h3 {
+  margin: 0vh;
+  padding: 0vh;
+}
+.game-scoreboard .tab {
+  margin-left: 2vw;
+}
+.game-scoreboard .cross-small {
+  font-size: 2vh;
+}
+.mini-token:hover {
+  background-color: #4a626d;
+}
+.mini-token.three {
+  background-image: url("../../assets/trade_3.png");
+}
+.mini-token.four {
+  background-image: url("../../assets/trade_4.png");
+}
+.mini-token.five {
+  background-image: url("../../assets/trade_5.png");
+}

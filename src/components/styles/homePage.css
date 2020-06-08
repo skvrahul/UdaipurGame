@@ -14,7 +14,7 @@
   height: 12vw;
   background: white;
   border-style: solid;
-  border-radius: 8px;
+  border-radius: 1vh;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -23,10 +23,10 @@
   margin-right: -60px;
   transition: margin 0.3s, width 0.2s, height 0.2s;
 }
-.card-inside {
+.menu-cards .card .card-inside {
   width: 85%;
   height: 85%;
-  border-radius: 4px;
+  border-radius: 0.8vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,12 +40,12 @@
   z-index: 1;
   cursor: pointer;
 }
-.card-inside.start {
+.menu-cards .card .card-inside.start {
   background: #81c784;
 }
-.card-inside.help {
+.menu-cards .card .card-inside.help {
   background: #e57373;
 }
-.card-inside.join {
+.menu-cards .card .card-inside.join {
   background: #81d4fa;
 }

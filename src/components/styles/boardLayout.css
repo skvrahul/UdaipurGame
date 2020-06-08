@@ -8,13 +8,13 @@
   position: relative;
 }
 .top {
-  height: 60%;
+  height: 50%;
   /* border: solid; */
   top: 0;
   /*   background: yellow; */
 }
 .bottom {
-  height: 40%;
+  height: 50%;
   /* border: solid; */
   top: 0;
   /*   background: green; */
