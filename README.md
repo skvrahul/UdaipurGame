@@ -36,7 +36,7 @@ The only departure from the original rules in Udaipur is the removal of the **Se
 Deploy to **Heroku** with the button below.  
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/skvrahul/udaipur-game/tree/deploy_heroku)
 
-## Future Additions
+## TODO
 
 - [x] Player move history in a sidebar (Commit [69e19588e7](https://github.com/skvrahul/UdaipurGame/commit/69e19588e7bd186ae4be670f32f510e48848a2c9))
 - [x] Display player Scoreboard while playing (Commit [2629c091f](https://github.com/skvrahul/UdaipurGame/commit/2629c091fa78b1268923d19f72fce92c0741c133))
