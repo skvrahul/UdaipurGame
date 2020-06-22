@@ -35,4 +35,4 @@ export const MAX_HAND_SIZE = 7;
 export const LARGEST_HERD_BONUS = 5;
 
 // Number of resources present when it ends the game
-export const NUM_RESOURCES_END = 5;
+export const NUM_RESOURCES_END = 3;
