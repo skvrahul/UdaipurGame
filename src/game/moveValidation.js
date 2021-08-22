@@ -117,10 +117,10 @@ export const MoveValidate = {
         )
       );
     }
-    if (G.tokens[cardType].length < cardsToTrade.length) {
+    if (G.tokens[cardType].length === 0) {
       return result(
         false,
-        "Not enough tokens in the market to trade that resource!"
+        "No tokens in the market to trade that resource!"
       );
     }
     return result(true, "OK");
