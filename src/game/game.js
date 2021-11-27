@@ -221,10 +221,12 @@ export const UdaipurGame = {
         const cardType = cardsToTrade[0].type;
         let tradeSize = cardsToTrade.length;
         for (let i = 0; i < tradeSize; i++) {
-          G.players[p].trade_tokens.push({
-            resource: cardType,
-            value: G.tokens[cardType].pop(),
-          });
+          if (G.tokens[cardType].length > 0){
+            G.players[p].trade_tokens.push({
+              resource: cardType,
+              value: G.tokens[cardType].pop(),
+            });
+          }
         }
         let actionString = `Player ${p} sold ${tradeSize} of their ${cardType} card(s) `;
 
